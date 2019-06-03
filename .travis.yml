@@ -10,6 +10,7 @@ before_install:
 before_script:
   - mysql --version
 script:
+  - rm .yarnclean
   - yarn --ignore-engines
   - npm test
 after_script:
