@@ -2,6 +2,7 @@
 let exp = require('express');     // to set up an express app
 let bp  = require('body-parser'); // for parsing JSON in request bodies
 let helmet = require('helmet'); // For header security
+let rateLimiterMiddleware = require('./middleware/rateLimiterMiddleware');
 
 // import Error classes
 // NOTE: UnauthorizedError is built into express-jwt
@@ -18,6 +19,9 @@ let app = exp();
 /**
  * Preflight Middleware
  */
+// Rate limiter middleware to prevent DDoS
+app.use(rateLimiterMiddleware);
+
 // CORS
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -32,10 +36,8 @@ app.use(function(req, res, next) {
   }
 });
 
-/**
- * To help protect your app from some well-known web vulnerabilities 
- * by setting HTTP headers appropriately
- */
+// To help protect your app from some well-known web vulnerabilities 
+// by setting HTTP headers appropriately
 app.use(helmet());
 
 // parse JSON in the body of requests
