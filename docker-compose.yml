@@ -1,0 +1,9 @@
+version: '2'
+
+services:
+  app:
+    image: ecommerce-api:latest
+    ports:
+    - 49160:8080
+  redis:
+    image: redis:latest
