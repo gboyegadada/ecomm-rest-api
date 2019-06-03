@@ -32,13 +32,6 @@ app.use(function(req, res, next) {
   }
 });
 
-// auth0 JWT; reject requests that aren't authorized
-// client ID and secret should be stored in a .env file
-app.use(jwt({
-  secret: process.env.AUTH0_SECRET,
-  audience: process.env.AUTH0_ID
-}));
-
 // parse JSON in the body of requests
 app.use(bp.json());
 
