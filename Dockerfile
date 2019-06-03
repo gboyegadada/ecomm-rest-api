@@ -9,7 +9,7 @@ WORKDIR /usr/src/app
 COPY package*.json yarn.lock ./
 
 RUN \
-    npm install -g nodemon mocha nyc snyk \
+    npm install -g nodemon mocha nyc snyk pm2 \
     yarn
 # If you are building your code for production
 # RUN npm ci --only=production
@@ -18,4 +18,8 @@ RUN \
 COPY . .
 
 EXPOSE 8080
-CMD [ "npm", "start" ]
+
+# Show current folder structure in logs
+# RUN ls -al -R
+
+CMD [ "pm2-runtime", "start", "ecosystem.config.js" ]
