@@ -1,6 +1,15 @@
 'use strict';
+let jwt = require('express-jwt'); // for authentication with Auth0 JWT's
 // import controllers
 let User = require('./controllers/user');
+
+// auth0 JWT; reject requests that aren't authorized
+// client ID and secret should be stored in a .env file
+const auth = jwt({
+  secret: process.env.AUTH0_SECRET,
+  audience: process.env.AUTH0_ID
+});
+
 
 // export route generating function
 module.exports = app => {
@@ -13,10 +22,10 @@ module.exports = app => {
   });
 
   app.route('/users')
-    .get(User.getAll);
+    .get(auth, User.getAll);
     // .post(User.create);
 
   app.route('/users/:id')
-    .get(User.getOne);
+    .get(auth, User.getOne);
 
 };
