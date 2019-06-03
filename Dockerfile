@@ -8,7 +8,9 @@ WORKDIR /usr/src/app
 # where available (npm@5+)
 COPY package*.json yarn.lock ./
 
-RUN yarn --ignore-engines
+RUN \
+    npm install -g nodemon mocha nyc \
+    yarn --ignore-engines
 # If you are building your code for production
 # RUN npm ci --only=production
 
