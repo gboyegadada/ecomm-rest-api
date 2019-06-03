@@ -1,15 +1,15 @@
 const db = require('../db');
 
 module.exports = {
-    findAll: () => {
-
+    findAll: (params, done) => {
+        return done(null, []);
     },
 
-    find: (id) => {
-
+    find: (id, done) => {
+        return done(null, {});
     },
 
-    findOneBy: (params) => {
-
+    findOneBy: (params, done) => {
+        return done(null, []);
     }
 };

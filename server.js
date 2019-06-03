@@ -1,6 +1,5 @@
 // import libraries
 let exp = require('express');     // to set up an express app
-let jwt = require('express-jwt'); // for authentication with Auth0 JWT's
 let bp  = require('body-parser'); // for parsing JSON in request bodies
 
 // import Error classes
