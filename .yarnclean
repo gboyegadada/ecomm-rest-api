@@ -10,7 +10,8 @@ doc
 website
 images
 assets
-!node_modules/istanbul-reports/lib/html/assets
+!nyc/node_modules/istanbul-reports/lib/html/assets
+!node_modules\istanbul-reports\lib\html\assets
 
 # examples
 example

@@ -7,7 +7,7 @@
     "test": "nyc --reporter=lcov --reporter=text mocha",
     "watch": "nyc mocha --watch",
     "start": "nodemon index.js",
-    "cover": "nyc --reporter=html --reporter=text mocha"
+    "cover": "nyc --reporter=lcov --reporter=text mocha"
   },
   "repository": {
     "type": "git",
