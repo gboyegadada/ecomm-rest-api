@@ -3,7 +3,14 @@ language: node_js
 services:
   - mysql
 env:
-  - APP="eCommerceApi" DB_NAME="api" DB_HOST="127.0.0.1" DB_USER="root" DB_PASS="secret" AUTH0_SECRET="(oZhS6OJQ9s&_J52KqyU*BWgQX-vWbuigQl#7btZM0(2!1rVW(#cu&X@2qInY03o" AUTH0_ID="U18Wci8fuZ!UVWQGwD9sg0m%PbJXzLmF"
+  - APP="eCommerceApi" 
+  - DB_NAME="api" 
+  - DB_HOST="127.0.0.1" 
+  - DB_USER="root" 
+  - DB_PASS="secret" 
+  - AUTH0_SECRET="(oZhS6OJQ9s&_J52KqyU*BWgQX-vWbuigQl#7btZM0(2!1rVW(#cu&X@2qInY03o" 
+  - AUTH0_ID="U18Wci8fuZ!UVWQGwD9sg0m%PbJXzLmF"
+  - SNYK_TOKEN="33b4c2d8-a3e6-4165-b4a1-5528fd72de20"
 node_js:
   - 'stable'
 before_install:
@@ -12,6 +19,7 @@ before_install:
 before_script:
   - mysql --version
 script:
+  - snyk test
   - npm test
 after_script:
   - cat ./coverage/lcov.info | ./node_modules/.bin/coveralls

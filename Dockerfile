@@ -9,7 +9,7 @@ WORKDIR /usr/src/app
 COPY package*.json yarn.lock ./
 
 RUN \
-    npm install -g nodemon mocha nyc \
+    npm install -g nodemon mocha nyc snyk \
     yarn
 # If you are building your code for production
 # RUN npm ci --only=production
