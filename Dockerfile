@@ -9,7 +9,9 @@ WORKDIR /usr/src/app
 COPY package*.json yarn.lock ./
 
 RUN \
-    npm install -g nodemon mocha nyc snyk pm2 \
+    apt-get update && \
+    apt-get -y install mysql-client && \
+    npm install -g nodemon mocha nyc snyk pm2 && \
     yarn
 # If you are building your code for production
 # RUN npm ci --only=production
@@ -22,4 +24,5 @@ EXPOSE 8080
 # Show current folder structure in logs
 # RUN ls -al -R
 
-CMD [ "pm2-runtime", "start", "ecosystem.config.js" ]
+# CMD [ "pm2-runtime", "start", "ecosystem.config.js" ]
+CMD ["npm", "start"]

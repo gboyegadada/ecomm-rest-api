@@ -1,12 +1,43 @@
-version: '2'
+version: '3'
 
 services:
-  app:
-    # build: .
+  nodejs:
+    build:
+      context: .
+      dockerfile: Dockerfile
     image: ecommerce-api-image:latest
+    restart: unless-stopped
     volumes:
       - .:/usr/src/app
+      - ./node_modules:/usr/src/app/node_modules
+    links:
+      - db:db  
     ports:
-    - 49160:8080
+      - 49160:8080
+    env_file: .env
+    networks:
+      - app-network-1  
   redis:
     image: redis:latest
+    restart: unless-stopped
+    networks:
+      - app-network-1  
+  db:
+    image: mysql:latest
+    restart: unless-stopped
+    command: --default-authentication-plugin=mysql_native_password 
+    volumes:
+      - ./database:/docker-entrypoint-initdb.d
+    env_file: .env
+    environment:
+      MYSQL_DATABASE: $DB_NAME
+      MYSQL_USER: app
+      MYSQL_PASSWORD: secret
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+      MYSQL_ROOT_PASSWORD: ''
+    networks:
+      - app-network-1  
+
+networks:
+  app-network-1:
+    driver: bridge
