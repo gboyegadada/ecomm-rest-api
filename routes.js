@@ -1,7 +1,11 @@
 'use strict';
 let jwt = require('express-jwt'); // for authentication with Auth0 JWT's
 // import controllers
-let User = require('./controllers/user');
+let customerController = require('./controllers/customer');
+
+// import validators
+let customerValidator = require('./validators/customer');
+
 
 // auth0 JWT; reject requests that aren't authorized
 // client ID and secret should be stored in a .env file
@@ -20,11 +24,6 @@ module.exports = app => {
     });
   });
 
-  app.route('/users')
-    .get(auth, User.getAll);
-    // .post(User.create);
-
-  app.route('/users/:id')
-    .get(auth, User.getOne);
-
+  app.route('/customers')
+    .post(customerValidator.signUp(), customerController.signUp);
 };
