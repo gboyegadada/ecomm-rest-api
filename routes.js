@@ -5,10 +5,12 @@ const { check } = require('express-validator/check');
 // import controllers
 let customerController = require('./controllers/customer');
 let departmentController = require('./controllers/department');
+let categoryController = require('./controllers/category');
 
 // import validators
 let customerValidator = require('./validators/customer');
 let departmentValidator = require('./validators/department');
+let categoryValidator = require('./validators/category');
 
 
 // auth0 JWT; reject requests that aren't authorized
@@ -41,5 +43,18 @@ module.exports = app => {
 
   app.route('/departments/:id')
     .get(departmentValidator.get(), departmentController.get);
+
+  // 3. CATEGORIES
+  app.route('/categories/inDepartment/:id')
+    .get(categoryValidator.getByDepartment(), categoryController.getByDepartment);
+
+  app.route('/categories/inProduct/:id')
+    .get(categoryValidator.getByProduct(), categoryController.getByProduct);
+
+  app.route('/categories/:id')
+    .get(categoryValidator.get(), categoryController.get);
+    
+  app.route('/categories')
+    .get(categoryValidator.index(), categoryController.index);
 
 };

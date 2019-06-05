@@ -1,5 +1,4 @@
 const { check } = require('express-validator/check');
-let Customer = require('../repositories/customer');
 
 module.exports =  {
   get: () => {
