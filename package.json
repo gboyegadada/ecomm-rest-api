@@ -4,10 +4,10 @@
   "description": "An eCommerce REST API based on NodeJS, Express, MongoDB, Mongoose using JSON Web Tokens (JWT).",
   "main": "index.js",
   "scripts": {
-    "test": "nyc --reporter=lcov --reporter=text mocha",
+    "test": "nyc --reporter=lcov --reporter=text mocha --exit",
     "watch": "nyc mocha --watch",
     "start": "nodemon index.js",
-    "cover": "nyc --reporter=html --reporter=text mocha"
+    "cover": "nyc --reporter=html --reporter=text mocha --exit"
   },
   "repository": {
     "type": "git",
@@ -17,8 +17,8 @@
     "REST",
     "API",
     "Express",
-    "MongoDB",
-    "Mongoose",
+    "SQL",
+    "MySQL",
     "TDD",
     "JWT",
     "Auth0"
@@ -30,12 +30,17 @@
   },
   "homepage": "https://github.com/gboyegadada/ecommerce-api#readme",
   "dependencies": {
+    "bcrypt": "^3.0.6",
     "body-parser": "^1.19.0",
     "dotenv": "^8.0.0",
     "express": "^4.17.1",
     "express-jwt": "^5.3.1",
+    "express-validator": "^5.3.1",
+    "helmet": "^3.18.0",
     "knex": "^0.17.3",
-    "mysql": "^2.17.1"
+    "mysql": "^2.17.1",
+    "rate-limiter-flexible": "^1.0.2",
+    "redis": "^2.8.0"
   },
   "devDependencies": {
     "async": "^3.0.1",

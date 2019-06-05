@@ -1,7 +1,9 @@
 // import libraries
 let exp = require('express');     // to set up an express app
-let jwt = require('express-jwt'); // for authentication with Auth0 JWT's
 let bp  = require('body-parser'); // for parsing JSON in request bodies
+let helmet = require('helmet'); // For header security
+let expressValidator = require('express-validator');
+let rateLimiterMiddleware = require('./middleware/rateLimiterMiddleware');
 
 // import Error classes
 // NOTE: UnauthorizedError is built into express-jwt
@@ -18,6 +20,9 @@ let app = exp();
 /**
  * Preflight Middleware
  */
+// Rate limiter middleware to prevent DDoS
+app.use(rateLimiterMiddleware);
+
 // CORS
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -31,6 +36,10 @@ app.use(function(req, res, next) {
     next();
   }
 });
+
+// To help protect your app from some well-known web vulnerabilities 
+// by setting HTTP headers appropriately
+app.use(helmet());
 
 // parse JSON in the body of requests
 app.use(bp.json());
@@ -53,19 +62,25 @@ app.use((req, res, next) => {
 app.use((err, req, res, next) => {
   switch(err.name) {
     case 'BadRequestError':
-      res.status(400).json({ name: err.name, message: err.message });
+      res.status(400).json({ error: { status: 400, code: err.name, message: err.message, field: null } });
       break;
     case 'UnauthorizedError':
-      res.status(401).json(err);
+      res.status(401).json({ error: { status: 401, code: 'AUT_02', message: 'Access Unauthorized', field: null } });
       break;
     case 'ForbiddenError':
-      res.status(403).json({ name: err.name, message: err.message });
+      res.status(403).json({ error: { status: 403, code: err.name, message: err.message, field: null } });
       break;
     case 'RouteNotFoundError':
-      res.status(404).json({ name: err.name, message: err.message });
+      res.status(404).json({ error: { status: 404, code: err.name, message: err.message, field: null } });
+      break;
+    case 'ValidationError':
+      res.status(400).json({ error: { status: 400, code: err.extra.code, message: err.message, field: err.extra.param } });
+      break;
+    case 'AuthenticationError':
+      res.status(401).json({ error: { status: 401, code: err.extra.code, message: err.message, field: err.extra.param } });
       break;
     default:
-      res.status(400).json(err);
+      res.status(400).json({ error: { status: 400, code: err.name, message: err.message, field: null } });
   }
 });
 
