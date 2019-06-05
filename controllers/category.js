@@ -23,6 +23,35 @@ module.exports = {
         next(new ValidationError('Validation failed!', result));
       }
   },
+
+  getByDepartment: (req, res, next) => {
+    let result = validatorErrorFormatter(req);
+      if (result.isEmpty()) { 
+        let sort = { 
+          page: 1, 
+          limit: 100, 
+          order_by: 'category_id', 
+          order: 'asc' 
+        };
+
+        Category.findAll({department_id: req.params.id}, sort)
+        .then(rows => res.json(rows))
+        .catch(next);
+      } else {
+        next(new ValidationError('Validation failed!', result));
+      }
+  },
+
+  getByProduct: (req, res, next) => {
+    let result = validatorErrorFormatter(req);
+      if (result.isEmpty()) { 
+        Category.findByProduct(req.params.id)
+        .then(rows => res.json(rows))
+        .catch(next);
+      } else {
+        next(new ValidationError('Validation failed!', result));
+      }
+  },
   
   get: (req, res, next) => {
     let result = validatorErrorFormatter(req);

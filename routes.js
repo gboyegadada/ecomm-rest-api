@@ -44,11 +44,17 @@ module.exports = app => {
   app.route('/departments/:id')
     .get(departmentValidator.get(), departmentController.get);
 
-    // 2. CATEGORIES
-    app.route('/categories')
-      .get(categoryController.index);
-  
-    app.route('/categories/:id')
-      .get(categoryValidator.get(), categoryController.get);
+  // 3. CATEGORIES
+  app.route('/categories/inDepartment/:id')
+    .get(categoryValidator.getByDepartment(), categoryController.getByDepartment);
+
+  app.route('/categories/inProduct/:id')
+    .get(categoryValidator.getByProduct(), categoryController.getByProduct);
+
+  app.route('/categories/:id')
+    .get(categoryValidator.get(), categoryController.get);
+    
+  app.route('/categories')
+    .get(categoryValidator.index(), categoryController.index);
 
 };

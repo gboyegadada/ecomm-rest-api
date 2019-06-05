@@ -92,6 +92,30 @@ describe(`Test /categories routes:`, function() {
         }, done);
     });
 
+    it('should return categories in NATURE department (id:2) ', function(done) {
+      request(app).get('/categories/inDepartment/2')
+        .set('Accept', 'application/json')
+        .expect('Content-Type', /json/)
+        .expect(200)
+        .then(res => {
+          expect(res.body.length).to.be.at.least(1);
+          
+          done();
+        }, done);
+    });
+
+    it('should return categories that the product (id:45) is in', function(done) {
+      request(app).get('/categories/inProduct/45')
+        .set('Accept', 'application/json')
+        .expect('Content-Type', /json/)
+        .expect(200)
+        .then(res => {
+          expect(res.body.length).to.be.at.least(1);
+          
+          done();
+        }, done);
+    });
+
   });
 
   describe('2. Fetch single record by :id', function(done) {

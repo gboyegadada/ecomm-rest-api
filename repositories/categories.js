@@ -57,3 +57,21 @@ exports.findAll = (params = {}, sort = { page: 1, limit: 20, order_by: 'category
         .orderBy(sort.order_by, sort.order)
         .timeout(1000);
 };
+
+/**
+ * Returns categories of a product.
+ *
+ * @param {integer} - A number param
+ * @return {Promise} A Promise
+ *
+ * @example
+ *
+ *     findAll().then(rows => rows.map())
+ */
+exports.findByProduct = (product_id) => {
+    return db(`${TABLE} as c`)
+        .leftJoin('product_category as pc', 'c.category_id', 'pc.category_id')
+        .where('pc.product_id', product_id)
+        .select('c.*')
+        .timeout(1000);
+};
