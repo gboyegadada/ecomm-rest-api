@@ -50,7 +50,7 @@ describe(`Test /departments routes:`, function() {
         .expect('Content-Type', /json/)
         .expect(200)
         .then(res => {
-          expect(res.body.department.schema.department_id).to.be.equal(1);
+          expect(res.body.department_id).to.be.equal(1);
 
           done();
         }, done);

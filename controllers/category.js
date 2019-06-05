@@ -5,14 +5,6 @@ let validatorErrorFormatter = require('../handlers/validation-error-formatter');
 let RecordNotFoundError = require('../errors/record-not-found-error');
 let ValidationError = require('../errors/validation-error');
 
-let formatResponseObject = (schema) => {
-  return {
-    "category": {
-      "schema": schema
-    }
-  }
-}
-
 module.exports = {
   index: (req, res, next) => {
     let result = validatorErrorFormatter(req);
@@ -25,7 +17,7 @@ module.exports = {
         };
 
         Category.findAll({}, sort)
-        .then(rows => res.json(rows.map(formatResponseObject)))
+        .then(rows => res.json({ "count": rows.length, "rows": rows }))
         .catch(next);
       } else {
         next(new ValidationError('Validation failed!', result));
@@ -37,7 +29,7 @@ module.exports = {
     if (result.isEmpty()) { 
       Category.find(req.params.id)
       .then(row => row
-        ? res.json(formatResponseObject(row)) 
+        ? res.json(row) 
         : next(new RecordNotFoundError('A category with this ID does not exist.', { code: 'CAT_01', param: ':id' }))
       )
       .catch(next);

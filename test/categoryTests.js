@@ -40,6 +40,58 @@ describe(`Test /categories routes:`, function() {
         }, done);
     });
 
+    it('should return only 5 records when `?limit=5`', function(done) {
+      request(app).get('/categories?limit=5')
+        .set('Accept', 'application/json')
+        .expect('Content-Type', /json/)
+        .expect(200)
+        .then(res => {
+          expect(res.body.count).to.be.eq(5);
+          expect(res.body.rows.length).to.be.eq(5);
+          
+          done();
+        }, done);
+    });
+
+    it('should return records begining from id:5 when `?page=2`', function(done) {
+      request(app).get('/categories?limit=5&page=2')
+        .set('Accept', 'application/json')
+        .expect('Content-Type', /json/)
+        .expect(200)
+        .then(res => {
+          expect(res.body.count).to.be.at.least(1);
+          expect(res.body.rows[0].category_id).to.be.eq(6);
+          
+          done();
+        }, done);
+    });
+
+    it('should return records in ASCENDING order when `?order=asc`', function(done) {
+      request(app).get('/categories?limit=5&order=asc')
+        .set('Accept', 'application/json')
+        .expect('Content-Type', /json/)
+        .expect(200)
+        .then(res => {
+          expect(res.body.count).to.be.eq(5);
+          expect(res.body.rows[0].category_id).to.be.eq(1);
+          
+          done();
+        }, done);
+    });
+
+    it('should return records in DESCENDING order when `?order=desc`', function(done) {
+      request(app).get('/categories?limit=5&order=desc')
+        .set('Accept', 'application/json')
+        .expect('Content-Type', /json/)
+        .expect(200)
+        .then(res => {
+          expect(res.body.count).to.be.eq(5);
+          expect(res.body.rows[0].category_id).to.be.eq(7);
+          
+          done();
+        }, done);
+    });
+
   });
 
   describe('2. Fetch single record by :id', function(done) {
@@ -50,7 +102,7 @@ describe(`Test /categories routes:`, function() {
         .expect('Content-Type', /json/)
         .expect(200)
         .then(res => {
-          expect(res.body.category.schema.category_id).to.be.equal(1);
+          expect(res.body.category_id).to.be.equal(1);
 
           done();
         }, done);
