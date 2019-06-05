@@ -1,4 +1,4 @@
-let Category = require('../repositories/categories');
+let Category = require('../repositories/category');
 let validatorErrorFormatter = require('../handlers/validation-error-formatter');
 
 // import Error classes

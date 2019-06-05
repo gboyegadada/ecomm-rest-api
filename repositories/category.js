@@ -38,7 +38,7 @@ module.exports.findOneBy = (params, done, next) => {
 };
 
 /**
- * Returns all departments.
+ * Returns all categories.
  *
  * @param {object} - A standard object param
  * @param {object} - A standard object param

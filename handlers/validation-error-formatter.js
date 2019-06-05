@@ -43,6 +43,15 @@ const result = validationResult.withDefaults({
             case 'The Category ID is not number.':
                 error.code = 'CAT_01';
                 break;
+            case 'The Attribute ID is not number.':
+                error.code = 'ATR_01';
+                break;
+            case 'The Product ID is not number.':
+                error.code = 'PRD_01';
+                break;
+            case 'The Value ID is not number.':
+                error.code = 'VAL_01';
+                break;
             default:
                 error.code = 'USR_02';
                 break;
