@@ -14,7 +14,7 @@ const DEBUG = false;
 // load the server
 let app = require('../server');
 
-describe(`Test customer authentication routes:`, function() {
+describe(`Test /customers authentication routes:`, function() {
 
   this.timeout('60s');
 

@@ -37,6 +37,12 @@ const result = validationResult.withDefaults({
             case 'A department with this ID does not exist.':
                 error.code = 'DEP_02';
                 break;
+            case 'A category with this ID does not exist.':
+                error.code = 'CAT_01';
+                break;
+            case 'The Category ID is not number.':
+                error.code = 'CAT_01';
+                break;
             default:
                 error.code = 'USR_02';
                 break;

@@ -20,8 +20,8 @@ let app = exp();
 /**
  * Preflight Middleware
  */
-// Rate limiter middleware to prevent DDoS
-app.use(rateLimiterMiddleware);
+// Rate limiter middleware to prevent DDoS (enable in ** PRODUCTION **)
+// app.use(rateLimiterMiddleware);
 
 // CORS
 app.use(function(req, res, next) {
