@@ -1,4 +1,5 @@
 -- Create tshirtshop tables
+CREATE DATABASE IF NOT EXISTS app;
 USE app;
 
 -- Create department table
