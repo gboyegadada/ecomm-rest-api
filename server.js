@@ -73,11 +73,14 @@ app.use((err, req, res, next) => {
     case 'RouteNotFoundError':
       res.status(404).json({ error: { status: 404, code: err.name, message: err.message, field: null } });
       break;
-      case 'ValidationError':
-        res.status(400).json({ error: { status: 400, code: err.extra.code, message: err.message, field: err.extra.param } });
-        break;
+    case 'ValidationError':
+      res.status(400).json({ error: { status: 400, code: err.extra.code, message: err.message, field: err.extra.param } });
+      break;
+    case 'AuthenticationError':
+      res.status(401).json({ error: { status: 401, code: err.extra.code, message: err.message, field: err.extra.param } });
+      break;
     default:
-      res.status(400).json({ error: { status: 400, code: err.name, message: err.message, field: 'debug' } });
+      res.status(400).json({ error: { status: 400, code: err.name, message: err.message, field: null } });
   }
 });
 

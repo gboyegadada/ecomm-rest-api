@@ -26,4 +26,7 @@ module.exports = app => {
 
   app.route('/customers')
     .post(customerValidator.signUp(), customerController.signUp);
+
+  app.route('/customers/login')
+    .post(customerValidator.login(), customerController.login);
 };

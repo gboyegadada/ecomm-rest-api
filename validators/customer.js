@@ -21,5 +21,20 @@ module.exports =  {
           .isLength({ max: 50 }).withMessage(`This is too long <name>`)
           .matches(/\d/).withMessage('must contain a number')
     ];
+  },
+  
+  login: () => {
+    return [
+      check('email', `The 'email' field is required.`)
+          .isEmail().withMessage('The email is invalid')
+          .custom(value => {
+            return Customer.findOneBy({ email: value }).then(customer => {
+              if (!customer) return Promise.reject('The email doesn\'t exist.');
+            })
+          }).withMessage('The email doesn\'t exist.'),
+
+      check('password', `The 'password' field is required.`)
+          .isLength({ min: 3 })
+    ];
   }
 };

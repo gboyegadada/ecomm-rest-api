@@ -1,6 +1,12 @@
 let Customer = require('../repositories/customer');
 let validatorErrorFormatter = require('../handlers/validation-error-formatter');
 let ValidationError = require('../errors/validation-error');
+let AuthenticationError = require('../errors/authentication-error');
+const bcrypt = require('bcrypt');
+
+// import Error classes
+let RouteNotFoundError = require('../errors/route-not-found');
+
 let jwt = require('jsonwebtoken');
 
 let formatResponseObject = (customer) => {
@@ -31,9 +37,34 @@ module.exports = {
         name, 
         email, 
         password
-      }, customer => res.json(formatResponseObject(customer)), next);
+      })
+      .then(customer => customer 
+        ? res.json(formatResponseObject(customer)) 
+        : next(new RouteNotFoundError('Customer record not found.'))
+      )
+      .catch(next);
     } else {
       next(new ValidationError('Validation failed!', result));
+    }
+  },
+
+  login: (req, res, next) => {
+    let result = validatorErrorFormatter(req);
+    if (result.isEmpty()) { 
+      const { email, password } = req.body; 
+
+      Customer.findOneBy({ email })
+      .then(customer => {
+        return bcrypt
+        .compare(password, customer.password)
+        .then(authenticated => authenticated 
+              ? res.json(formatResponseObject(customer))
+              : next(new AuthenticationError('Email or Password is invalid.', { param: 'password', code: 'USR_01' }))
+        )
+      })
+      .catch(next);
+    } else {
+      next(new AuthenticationError('Email or Password is invalid.', { param: 'email', code: 'USR_01' }));
     }
   }
 };
