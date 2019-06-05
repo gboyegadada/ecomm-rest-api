@@ -1,10 +1,14 @@
 'use strict';
 let jwt = require('express-jwt'); // for authentication with Auth0 JWT's
+const { check } = require('express-validator/check');
+
 // import controllers
 let customerController = require('./controllers/customer');
+let departmentController = require('./controllers/department');
 
 // import validators
 let customerValidator = require('./validators/customer');
+let departmentValidator = require('./validators/department');
 
 
 // auth0 JWT; reject requests that aren't authorized
@@ -24,9 +28,18 @@ module.exports = app => {
     });
   });
 
+  // 1. AUTH
   app.route('/customers')
     .post(customerValidator.signUp(), customerController.signUp);
 
   app.route('/customers/login')
     .post(customerValidator.login(), customerController.login);
+
+  // 2. DEPARTMENTS 
+  app.route('/departments')
+    .get(departmentController.index);
+
+  app.route('/departments/:id')
+    .get(departmentValidator.get(), departmentController.get);
+
 };

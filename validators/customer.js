@@ -19,7 +19,32 @@ module.exports =  {
       check('password')
           .isLength({ min: 8 }).withMessage('must be at least 5 chars long')
           .isLength({ max: 50 }).withMessage(`This is too long <name>`)
-          .matches(/\d/).withMessage('must contain a number')
+          .matches(/\d/).withMessage('must contain a number'), 
+          
+      check('shipping_region_id')
+          .optional()
+          .isInt({min: 0})
+          .withMessage('The Shipping Region ID is not a number.'), 
+          
+      check('credit_card')
+          .optional()
+          .isCreditCard()
+          .withMessage('This is an invalid Credit Card.'), 
+          
+      check('day_phone')
+          .optional()
+          .isMobilePhone()
+          .withMessage('This is an invalid phone number.'), 
+          
+      check('eve_phone')
+          .optional()
+          .isMobilePhone()
+          .withMessage('This is an invalid phone number.'), 
+          
+      check('mob_phone')
+          .optional()
+          .isMobilePhone()
+          .withMessage('This is an invalid phone number.')
     ];
   },
   
