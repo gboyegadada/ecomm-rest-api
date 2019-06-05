@@ -8,7 +8,7 @@ env:
 node_js:
   - 'stable'
 before_install:
-  - npm install -g nodemon mocha nyc
+  - npm install -g nodemon mocha nyc snyk
   - rm -f .yarnclean
   - cp -n .env.travis .env
   - mysql -e 'CREATE DATABASE IF NOT EXISTS app;'

@@ -4,10 +4,10 @@
   "description": "An eCommerce REST API based on NodeJS, Express, MongoDB, Mongoose using JSON Web Tokens (JWT).",
   "main": "index.js",
   "scripts": {
-    "test": "nyc --reporter=lcov --reporter=text mocha",
+    "test": "nyc --reporter=lcov --reporter=text mocha --exit",
     "watch": "nyc mocha --watch",
     "start": "nodemon index.js",
-    "cover": "nyc --reporter=html --reporter=text mocha"
+    "cover": "nyc --reporter=html --reporter=text mocha --exit"
   },
   "repository": {
     "type": "git",

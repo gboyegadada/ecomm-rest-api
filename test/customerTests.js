@@ -16,8 +16,6 @@ let app = require('../server');
 
 describe(`Test customer authentication routes:`, function() {
 
-  // create a variable to keep track of items added/removed from the database
-  let doc_stats = {};
   this.timeout('60s');
 
   // setup
@@ -26,9 +24,8 @@ describe(`Test customer authentication routes:`, function() {
   });
 
   // teardown
-  after(function() {
-    // remove all documents from the database
-    
+  after(function(done) {
+    done();
   });
 
   describe('1. Customer Sign Up', function() {

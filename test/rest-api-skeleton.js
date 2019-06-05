@@ -28,26 +28,16 @@ let unBSON = bson => JSON.parse(JSON.stringify(bson));
 
 describe(`The ${process.env.APP} REST API`, function() {
 
-  // create a variable to keep track of items added/removed from the database
-  let doc_stats = {};
   this.timeout(0);
 
   // setup
   before(function(done) {
-    dg.generate((counts) => {
-      doc_stats = counts;
       done();
-    });
   });
 
   // teardown
-  after(function() {
-    // remove all documents from the database
-    
-  });
-
-  it('can blow smoke', function() {
-    expect(true).to.be.true;
+  after(function(done) {
+    done();
   });
 
   /*
