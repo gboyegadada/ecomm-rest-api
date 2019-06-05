@@ -28,8 +28,14 @@ const result = validationResult.withDefaults({
             case 'This is an invalid Credit Card.':
                 error.code = 'USR_08';
                 break;
-            case 'The Shipping Region ID is not number':
+            case 'The Shipping Region ID is not number.':
                 error.code = 'USR_09';
+                break;
+            case 'The Department ID is not number.':
+                error.code = 'DEP_01';
+                break;
+            case 'A department with this ID does not exist.':
+                error.code = 'DEP_02';
                 break;
             default:
                 error.code = 'USR_02';
