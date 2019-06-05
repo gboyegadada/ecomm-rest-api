@@ -7,12 +7,14 @@ let customerController = require('./controllers/customer');
 let departmentController = require('./controllers/department');
 let categoryController = require('./controllers/category');
 let attributeController = require('./controllers/attribute');
+let productController = require('./controllers/product');
 
 // import validators
 let customerValidator = require('./validators/customer');
 let departmentValidator = require('./validators/department');
 let categoryValidator = require('./validators/category');
 let attributeValidator = require('./validators/attribute');
+let productValidator = require('./validators/product');
 
 
 // auth0 JWT; reject requests that aren't authorized
@@ -71,5 +73,18 @@ module.exports = app => {
     
   app.route('/attributes')
     .get(attributeController.index);
+    
+  // 5. PRODUCTS
+  app.route('/products/inCategory/:id')
+    .get(productValidator.getByCategory(), productController.getByCategory);
+
+  app.route('/products/inDepartment/:id')
+    .get(productValidator.getByDepartment(), productController.getByDepartment);
+
+  app.route('/products/:id')
+    .get(productValidator.get(), productController.get);
+    
+  app.route('/products')
+    .get(productValidator.index(), productController.index);
 
 };
