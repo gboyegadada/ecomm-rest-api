@@ -44,9 +44,6 @@ app.use(helmet());
 // parse JSON in the body of requests
 app.use(bp.json());
 
-// Validation
-app.use(expressValidator());
-
 /**
  * Routes
  */
@@ -68,7 +65,7 @@ app.use((err, req, res, next) => {
       res.status(400).json({ error: { status: 400, code: err.name, message: err.message, field: null } });
       break;
     case 'UnauthorizedError':
-      res.status(401).json({ error: { status: 401, code: err.name, message: err.message, field: null } });
+      res.status(401).json({ error: { status: 401, code: 'AUT_02', message: 'Access Unauthorized', field: null } });
       break;
     case 'ForbiddenError':
       res.status(403).json({ error: { status: 403, code: err.name, message: err.message, field: null } });
@@ -76,8 +73,11 @@ app.use((err, req, res, next) => {
     case 'RouteNotFoundError':
       res.status(404).json({ error: { status: 404, code: err.name, message: err.message, field: null } });
       break;
+      case 'ValidationError':
+        res.status(400).json({ error: { status: 400, code: err.extra.code, message: err.message, field: err.extra.param } });
+        break;
     default:
-      res.status(400).json({ error: { status: 400, code: err.name, message: err.message, field: null } });
+      res.status(400).json({ error: { status: 400, code: err.name, message: err.message, field: 'debug' } });
   }
 });
 

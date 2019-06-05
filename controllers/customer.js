@@ -1,5 +1,6 @@
 let Customer = require('../repositories/customer');
-let validationHandler = require('../handlers/validationHandler');
+let validatorErrorFormatter = require('../handlers/validation-error-formatter');
+let ValidationError = require('../errors/validation-error');
 let jwt = require('jsonwebtoken');
 
 let formatResponseObject = (customer) => {
@@ -22,10 +23,8 @@ let formatResponseObject = (customer) => {
 
 module.exports = {
   signUp: (req, res, next) => {
-    req
-    .getValidationResult() // From validator middleware...
-    .then(validationHandler())   
-    .then(() => { 
+    let result = validatorErrorFormatter(req);
+    if (result.isEmpty()) { 
       const { name, email, password } = req.body; 
 
       Customer.create({
@@ -33,8 +32,9 @@ module.exports = {
         email, 
         password
       }, customer => res.json(formatResponseObject(customer)), next);
-    })
-    .catch(next)
+    } else {
+      next(new ValidationError('Validation failed!', result));
+    }
   }
 };
 
