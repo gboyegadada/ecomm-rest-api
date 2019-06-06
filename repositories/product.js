@@ -46,7 +46,7 @@ module.exports.findOneBy = (params, done, next) => {
  *
  * @example
  *
- *     findAll().then(rows => rows.map())
+ *     findAll(params, sort).then(rows => rows.map())
  */
 exports.findAll = (params = {}, sort = { page: 1, limit: 20, order_by: 'product_id', order: 'asc', description_length: 200}) => {
     let skip = (sort.page-1) * sort.limit;
@@ -70,7 +70,7 @@ exports.findAll = (params = {}, sort = { page: 1, limit: 20, order_by: 'product_
  *
  * @example
  *
- *     findAll().then(rows => rows.map())
+ *     findByCategory(category_id).then(rows => rows.map())
  */
 exports.findByCategory = (category_id) => {
     return db(`${TABLE} as p`)
@@ -81,14 +81,14 @@ exports.findByCategory = (category_id) => {
 };
 
 /**
- * Returns products in a category.
+ * Returns products in a department.
  *
  * @param {integer} - A number param
  * @return {Promise} A Promise
  *
  * @example
  *
- *     findAll().then(rows => rows.map())
+ *     findByDepartment(department_id).then(rows => rows.map())
  */
 exports.findByDepartment = (department_id) => {
     return db(`${TABLE} as p`)
@@ -97,5 +97,64 @@ exports.findByDepartment = (department_id) => {
         .leftJoin('department as d', 'd.department_id', 'c.department_id')
         .where('d.department_id', department_id)
         .select('p.*')
+        .timeout(1000);
+};
+
+/**
+ * Returns products locations (categories and departments).
+ *
+ * @param {integer} - A number param
+ * @return {Promise} A Promise
+ *
+ * @example
+ *
+ *     getProductLocations(product_id).then(rows => rows.map())
+ */
+exports.getProductLocations = (product_id) => {
+    return db(`${TABLE} as p`)
+        .leftJoin('product_category as pc', 'p.product_id', 'pc.product_id')
+        .leftJoin('category as c', 'c.category_id', 'pc.category_id')
+        .leftJoin('department as d', 'd.department_id', 'c.department_id')
+        .where('p.product_id', product_id)
+        .select('c.category_id', 'c.name as category_name', 'd.department_id', 'd.name as department_name')
+        .timeout(1000)
+        .then(rows => (rows.length > 0) ? rows[0] : null);
+};
+
+/**
+ * Returns product reviews.
+ *
+ * @param {integer} - A number param
+ * @return {Promise} A Promise
+ *
+ * @example
+ *
+ *     getProductReviews(product_id).then(rows => rows.map())
+ */
+exports.getProductReviews = (product_id) => {
+    return db(`review`)
+        .where('product_id', product_id)
+        .timeout(1000);
+};
+
+/**
+ * Insert product review.
+ *
+ * @param {object} - Plain js object param
+ * @return {Promise} A Promise
+ *
+ * @example
+ *
+ *     getProductReviews(product_id).then(rows => rows.map())
+ */
+exports.createProductReview = (params) => {
+    return db(`review`)
+        .insert({
+            product_id: params.product_id, 
+            customer_id: params.customer_id,
+            review: params.review,
+            rating: params.rating,
+            created_on: new Date()
+        })
         .timeout(1000);
 };

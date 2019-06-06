@@ -1,4 +1,5 @@
 const { check } = require('express-validator/check');
+let Product = require('../repositories/product');
 
 module.exports =  {
   get: () => {
@@ -30,6 +31,34 @@ module.exports =  {
   getByCategory: () => {
     return [
       check('id').isInt({min: 0}).withMessage('The Category ID is not a number.')
+    ];
+  },
+  
+  getLocations: () => {
+    return [
+      check('id').isInt({min: 0}).withMessage('The Product ID is not a number.')
+    ];
+  },
+  
+  getReviews: () => {
+    return [
+      check('id').isInt({min: 0}).withMessage('The Product ID is not a number.')
+    ];
+  },
+  
+  newReview: () => {
+    return [
+      check('id')
+        .isInt({min: 0}).withMessage('The Product ID is not a number.')
+        .custom(value => {
+          return Product.find(value).then(product => {
+            if (null === product) return Promise.reject('The Product ID does not exist.');
+          })
+        }).withMessage('The Product ID does not exist.'),
+      
+      check('review').isLength({min: 3}).withMessage('Review should more that 3 characterts long.'), 
+      
+      check('rating').isInt({min: 0, max: 10}).withMessage('Rating should be between 0 and 10.')
     ];
   }
 };

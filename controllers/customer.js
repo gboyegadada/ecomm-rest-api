@@ -13,7 +13,7 @@ let formatResponseObject = (customer) => {
   delete customer.password;
   
   // create a JWT
-  let token = jwt.sign({ user: customer.email }, process.env.AUTH0_SECRET, {
+  let token = jwt.sign({ id: customer.customer_id, email: customer.email }, process.env.AUTH0_SECRET, {
     expiresIn: '24h',
     audience: process.env.AUTH0_ID
   });

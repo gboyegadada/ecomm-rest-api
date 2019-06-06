@@ -21,7 +21,14 @@ let productValidator = require('./validators/product');
 // client ID and secret should be stored in a .env file
 let auth = require('express-jwt')({
   secret: process.env.AUTH0_SECRET,
-  audience: process.env.AUTH0_ID
+  audience: process.env.AUTH0_ID,
+  getToken: (req) => {
+    if (req.headers['user-key'] && req.headers['user-key'].split(' ')[0] === 'Bearer') {
+        return req.headers['user-key'].split(' ')[1];
+    } 
+    
+    return null;
+  }
 });
 
 // export route generating function
@@ -80,6 +87,16 @@ module.exports = app => {
 
   app.route('/products/inDepartment/:id')
     .get(productValidator.getByDepartment(), productController.getByDepartment);
+
+  app.route('/products/:id/details')
+    .get(productValidator.get(), productController.get);
+
+  app.route('/products/:id/locations')
+    .get(productValidator.getLocations(), productController.getLocations);
+
+  app.route('/products/:id/reviews')
+    .get(productValidator.getReviews(), productController.getReviews)
+    .post([ auth, ...productValidator.newReview() ], productController.newReview);
 
   app.route('/products/:id')
     .get(productValidator.get(), productController.get);

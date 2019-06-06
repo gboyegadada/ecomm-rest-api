@@ -46,6 +46,44 @@ module.exports = {
         next(new ValidationError('Validation failed!', result));
       }
   },
+
+  getLocations: (req, res, next) => {
+    let result = validatorErrorFormatter(req);
+      if (result.isEmpty()) { 
+        Product.getProductLocations(req.params.id)
+        .then(rows => res.json(rows))
+        .catch(next);
+      } else {
+        next(new ValidationError('Validation failed!', result));
+      }
+  },
+
+  getReviews: (req, res, next) => {
+    let result = validatorErrorFormatter(req);
+      if (result.isEmpty()) { 
+        Product.getProductReviews(req.params.id)
+        .then(rows => res.json(rows))
+        .catch(next);
+      } else {
+        next(new ValidationError('Validation failed!', result));
+      }
+  },
+
+  newReview: (req, res, next) => {
+    let result = validatorErrorFormatter(req);
+      if (result.isEmpty()) { 
+        Product.createProductReview({
+          customer_id: req.user.id,
+          product_id: req.params.id, 
+          review: req.body.review,
+          rating: req.body.rating 
+        })
+        .then(rows => res.json(rows))
+        .catch(next);
+      } else {
+        next(new ValidationError('Validation failed!', result));
+      }
+  },
   
   get: (req, res, next) => {
     let result = validatorErrorFormatter(req);
