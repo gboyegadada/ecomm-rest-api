@@ -28,10 +28,10 @@ const result = validationResult.withDefaults({
             case 'This is an invalid Credit Card.':
                 error.code = 'USR_08';
                 break;
-            case 'The Shipping Region ID is not number.':
+            case 'The Shipping Region ID is not a number.':
                 error.code = 'USR_09';
                 break;
-            case 'The Department ID is not number.':
+            case 'The Department ID is not a number.':
                 error.code = 'DEP_01';
                 break;
             case 'A department with this ID does not exist.':
@@ -40,16 +40,16 @@ const result = validationResult.withDefaults({
             case 'A category with this ID does not exist.':
                 error.code = 'CAT_01';
                 break;
-            case 'The Category ID is not number.':
+            case 'The Category ID is not a number.':
                 error.code = 'CAT_01';
                 break;
-            case 'The Attribute ID is not number.':
+            case 'The Attribute ID is not a number.':
                 error.code = 'ATR_01';
                 break;
-            case 'The Product ID is not number.':
+            case 'The Product ID is not a number.':
                 error.code = 'PRD_01';
                 break;
-            case 'The Value ID is not number.':
+            case 'The Value ID is not a number.':
                 error.code = 'VAL_01';
                 break;
             default:

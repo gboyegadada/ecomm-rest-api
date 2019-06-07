@@ -7,19 +7,28 @@ let customerController = require('./controllers/customer');
 let departmentController = require('./controllers/department');
 let categoryController = require('./controllers/category');
 let attributeController = require('./controllers/attribute');
+let productController = require('./controllers/product');
 
 // import validators
 let customerValidator = require('./validators/customer');
 let departmentValidator = require('./validators/department');
 let categoryValidator = require('./validators/category');
 let attributeValidator = require('./validators/attribute');
+let productValidator = require('./validators/product');
 
 
 // auth0 JWT; reject requests that aren't authorized
 // client ID and secret should be stored in a .env file
 let auth = require('express-jwt')({
   secret: process.env.AUTH0_SECRET,
-  audience: process.env.AUTH0_ID
+  audience: process.env.AUTH0_ID,
+  getToken: (req) => {
+    if (req.headers['user-key'] && req.headers['user-key'].split(' ')[0] === 'Bearer') {
+        return req.headers['user-key'].split(' ')[1];
+    } 
+    
+    return null;
+  }
 });
 
 // export route generating function
@@ -71,5 +80,28 @@ module.exports = app => {
     
   app.route('/attributes')
     .get(attributeController.index);
+    
+  // 5. PRODUCTS
+  app.route('/products/inCategory/:id')
+    .get(productValidator.getByCategory(), productController.getByCategory);
+
+  app.route('/products/inDepartment/:id')
+    .get(productValidator.getByDepartment(), productController.getByDepartment);
+
+  app.route('/products/:id/details')
+    .get(productValidator.get(), productController.get);
+
+  app.route('/products/:id/locations')
+    .get(productValidator.getLocations(), productController.getLocations);
+
+  app.route('/products/:id/reviews')
+    .get(productValidator.getReviews(), productController.getReviews)
+    .post([ auth, ...productValidator.newReview() ], productController.newReview);
+
+  app.route('/products/:id')
+    .get(productValidator.get(), productController.get);
+    
+  app.route('/products')
+    .get(productValidator.index(), productController.index);
 
 };

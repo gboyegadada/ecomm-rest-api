@@ -3,7 +3,7 @@ const { check } = require('express-validator/check');
 module.exports =  {
   get: () => {
     return [
-      check('id').isInt({min: 0}).withMessage('The Category ID is not number.'),
+      check('id').isInt({min: 0}).withMessage('The Category ID is not a number.'),
     ];
   },
   
@@ -21,13 +21,13 @@ module.exports =  {
   
   getByDepartment: () => {
     return [
-      check('id').isInt({min: 0}).withMessage('The Department ID is not number.')
+      check('id').isInt({min: 0}).withMessage('The Department ID is not a number.')
     ];
   },
   
   getByProduct: () => {
     return [
-      check('id').isInt({min: 0}).withMessage('The Product ID is not number.')
+      check('id').isInt({min: 0}).withMessage('The Product ID is not a number.')
     ];
   }
 };
