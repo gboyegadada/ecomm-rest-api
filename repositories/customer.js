@@ -1,5 +1,6 @@
 const db = require('../db');
 const bcrypt = require('bcrypt');
+const saltRounds = 10;
 
 const TABLE = 'customer';
 
@@ -20,7 +21,6 @@ module.exports.findOneBy = (params, done, next) => {
 
 module.exports.create = (params) => {
     const { name, email, password } = params;
-    const saltRounds = 10;
 
     return bcrypt.hash(password, saltRounds)
             .then(hash => {
@@ -31,4 +31,23 @@ module.exports.create = (params) => {
                 }).timeout(1000);
             })
             .then(rows => module.exports.find(rows[0]));
+};
+
+module.exports.update = (id, params) => {
+    let update = (hash = false) => {
+
+        if (false !== hash) {
+            params.password = hash;
+        }
+        
+        return db(TABLE)
+            .update(params)
+            .where(`${TABLE}_id`, id)
+            .timeout(1000)
+            .then(rows => module.exports.find(id));
+    };
+
+    return ('password' in params) 
+        ? bcrypt.hash(params.password, saltRounds).then(update)
+        : update();
 };
