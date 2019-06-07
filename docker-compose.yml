@@ -7,6 +7,7 @@ services:
       dockerfile: Dockerfile
     image: ecommerce-api-image:latest
     restart: unless-stopped
+    command: ["./wait-for-mysql.sh", "db", "pm2-runtime", "start", "ecosystem.config.js"]
     volumes:
       - .:/usr/src/app
       - ./node_modules:/usr/src/app/node_modules
