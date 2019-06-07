@@ -101,7 +101,7 @@ module.exports = {
       Customer.update(req.user.id, params)
       .then(sanitizeCustomerProfile)
       .then(customer => customer 
-        ? res.json(formatResponseObject(customer)) 
+        ? res.json(customer) 
         : next(new RouteNotFoundError('Customer record not found.'))
       )
       .catch(next);
@@ -118,7 +118,7 @@ module.exports = {
       Customer.update(req.user.id, params)
       .then(sanitizeCustomerProfile)
       .then(customer => customer 
-        ? res.json(formatResponseObject(customer)) 
+        ? res.json(customer) 
         : next(new RouteNotFoundError('Customer record not found.'))
       )
       .catch(next);
@@ -135,7 +135,7 @@ module.exports = {
       Customer.update(req.user.id, params)
       .then(sanitizeCustomerProfile)
       .then(customer => customer 
-        ? res.json(formatResponseObject(customer)) 
+        ? res.json(customer) 
         : next(new RouteNotFoundError('Customer record not found.'))
       )
       .catch(next);

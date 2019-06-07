@@ -80,9 +80,11 @@ module.exports =  {
       check('email', `The 'email' field is required.`)
           .exists()
           .isEmail().withMessage('The email is invalid')
-          .custom(value => {
+          .custom((value, {req}) => {
             return Customer.findOneBy({ email: value }).then(customer => {
-              if (customer) return Promise.reject('The email already exists.');
+              if (customer && parseInt(customer.customer_id) !== parseInt(req.user.id)) {
+                return Promise.reject('The email already exists.');
+              }
             })
           }).withMessage('The email already exists.'),
 
@@ -143,12 +145,13 @@ module.exports =  {
 
       check('shipping_region_id')
           .exists()
+          .isInt()
           .custom(value => {
-            db('shipping_region')
-            .where('shipping_region_id', parseInt(value))
-            .then(rows => {
-              if (rows.length === 0) return Promise.reject('Shipping region is invalid.');
-            })
+            return db('shipping_region')
+              .where('shipping_region_id', parseInt(value))
+              .then(rows => {
+                if (rows.length === 0) return Promise.reject('Shipping region is invalid.');
+              })
           })
           .withMessage('Shipping region is invalid.'), 
     ];
