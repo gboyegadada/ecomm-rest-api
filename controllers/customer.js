@@ -1,15 +1,17 @@
 let Customer = require('../repositories/customer');
 let filter = require('express-validator/filter');
 let validatorErrorFormatter = require('../handlers/validation-error-formatter');
-let ValidationError = require('../errors/validation-error');
-let AuthenticationError = require('../errors/authentication-error');
-const bcrypt = require('bcrypt');
+let bcrypt = require('bcrypt');
+let jwt = require('jsonwebtoken');
+let {FB, FacebookApiException} = require('fb');
 
 // import Error classes
 let RouteNotFoundError = require('../errors/route-not-found');
+let ValidationError = require('../errors/validation-error');
+let AuthenticationError = require('../errors/authentication-error');
 
-let jwt = require('jsonwebtoken');
 
+// Define private helper functions
 let maskCreditCardNum = (credit_card) => {
   if (!credit_card) return null;
 
@@ -42,6 +44,33 @@ let formatResponseObject = (customer) => {
   }
 }
 
+let doFacebookAuth = (access_token) => {
+  return new Promise((resolve, reject) => {
+    
+    FB.setAccessToken(access_token);
+    FB.api(
+      '/me',
+      'GET',
+      {"fields":"id,email"},
+      (fbres) => {
+        if(!fbres || fbres.error) {
+            let e = !fbres ? 'Unknown error' : fbres.error;
+            reject(new AuthenticationError(`Facebook auth error: ${e.message}`, { param: 'access_token', code: 'USR_01' }))
+            return;
+        }
+
+        if(fbres.error) {
+          reject(new AuthenticationError(`Facebook auth error: ${fbres.error.message}`, { param: 'access_token', code: 'USR_01' }))
+        } else {
+            resolve(fbres);
+        }
+        
+      });
+  });
+}
+
+
+// Define controller actions...
 module.exports = {
   signUp: (req, res, next) => {
     let result = validatorErrorFormatter(req);
@@ -80,6 +109,24 @@ module.exports = {
       .catch(next);
     } else {
       next(new AuthenticationError('Email or Password is invalid.', { param: 'email', code: 'USR_01' }));
+    }
+  },
+
+  loginWithFacebook: (req, res, next) => {
+    let result = validatorErrorFormatter(req);
+    if (result.isEmpty()) { 
+      const { access_token } = filter.matchedData(req, {locations: ['body']});
+
+      doFacebookAuth(access_token)
+      .then(fbres => Customer.findOneBy({ email: fbres.email }))
+      .then(customer => {
+        return customer 
+              ? res.json(formatResponseObject(customer))
+              : next(new AuthenticationError('User not registered.', { param: 'access_token', code: 'USR_01' }))
+      })
+      .catch(next);
+    } else {
+      next(new AuthenticationError('Missing access token.', { param: 'access_token', code: 'USR_01' }));
     }
   },
 

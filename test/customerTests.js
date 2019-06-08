@@ -10,6 +10,7 @@ let _        = require('lodash');
 require('dotenv').config();
 
 const DEBUG = false;
+const EMAIL = 'boyega@gmail.com';
 
 // load the server
 let app = require('../server');
@@ -30,12 +31,10 @@ describe(`Test /customers routes:`, function() {
 
   describe('1. Customer Sign Up', function() {
 
-    let sameEmail = "the.bat.man.457.968.768@testgmail.com";
-
     it('returns 200 "OK" when name, email and password are provided', function(done) {
       let data = {
         "name": "Ben Affleck",
-        "email": sameEmail,
+        "email": EMAIL,
         "password": "secret89"
       };
 
@@ -59,7 +58,7 @@ describe(`Test /customers routes:`, function() {
     it('returns 400 "Bad Request" when email is taken', function(done) {
       let data = {
         "name": "Ben Affleck Jr",
-        "email": sameEmail,
+        "email": EMAIL,
         "password": "secret8909"
       };
 
@@ -82,11 +81,9 @@ describe(`Test /customers routes:`, function() {
 
   describe('2. Customer Login', function() {
 
-    let sameEmail = "the.bat.man.457.968.768@testgmail.com";
-
     it('returns 200 "OK" when email and password are valid', function(done) {
       let data = {
-        "email": sameEmail,
+        "email": EMAIL,
         "password": "secret89"
       };
 
@@ -108,7 +105,7 @@ describe(`Test /customers routes:`, function() {
     
     it('returns 401 "Unauthorized" when login fails', function(done) {
       let data = {
-        "email": sameEmail,
+        "email": EMAIL,
         "password": "secret8909"
       };
 
@@ -128,12 +125,53 @@ describe(`Test /customers routes:`, function() {
     });
 
   });
+
   
 
-  describe('3. Customer Profile', function() {
+  describe('3. Sign in with Facebook', function() {
 
-    let sameEmail = "the.bat.man.457.968.768@testgmail.com";
+    const fb_access_token = 'EAAGb5RqMa5wBAH2CUZAvZAiNZA9N4ZCguC7dGZCS4sqpTEsucyRdy4D81VjpyXQ8msjCdR1E1iiBXUxwzPbxrTZBfaPZASFW4bsUhZB1Dy1MTIQa0QcI0dpMSZC2vZCqqi1nt0MUqxOuG6kLWoIMHDs0T2QBuWzNua9YQ4dFjp7XJaPu4rzdWg2cZCqzrZCqUT1wYfZCrgOZBvo1K2G0UCIcjCBYAiXOprlIARyRBhxmjVEp4GcgZDZD';
+
+    it('returns 200 "OK" when access_token is valid', function(done) {
+
+      request(app).post('/customers/facebook')
+        .set('Accept', 'application/json')
+        .set('Content-Type', 'application/json')
+        .send({access_token: fb_access_token})
+        .expect('Content-Type', /json/)
+        .expect(200)
+        .then(res => {
+          expect(res.body.customer.schema.email).to.be.equal(EMAIL);
+          expect(res.body.expires_in).to.be.equal('24h');
+          expect(res.body).to.have.property('accessToken');
+
+          done();
+        }, done);
+    });
+
     
+    it('returns 401 "Unauthorized" when access_token is invalid', function(done) {
+
+      request(app).post('/customers/login')
+        .set('Accept', 'application/json')
+        .set('Content-Type', 'application/json')
+        .send({access_token: `${fb_access_token}k`})
+        .expect('Content-Type', /json/)
+        .expect(401)
+        .then(res => {
+          expect(res.body).to.have.property('error');
+          expect(res.body.error.status).to.eq(401);
+          expect(res.body.error.code).to.eq('USR_01');
+
+          done();
+        }, done);
+    });
+
+  });
+  
+
+  describe('4. Customer Profile', function() {
+
     // create a JWT
     let token = jwt.sign({ id: 1 }, process.env.AUTH0_SECRET, {
       expiresIn: '10s',
@@ -151,7 +189,7 @@ describe(`Test /customers routes:`, function() {
           expect(res.body).to.have.property('name');
           expect(res.body).to.have.property('email');
           expect(res.body).to.not.have.property('password');
-          expect(res.body.email).to.be.equal(sameEmail);
+          expect(res.body.email).to.be.equal(EMAIL);
 
           done();
         }, done);
@@ -160,7 +198,7 @@ describe(`Test /customers routes:`, function() {
     it('Update customer profile: 200 "OK" and customer profile', function(done) {
       let data = {
         "name": "Santa Clause",
-        "email": sameEmail,
+        "email": EMAIL,
         "day_phone": "07062347890",
         "eve_phone": "07062347890",
         "mob_phone": "07062347890"

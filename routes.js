@@ -48,6 +48,9 @@ module.exports = app => {
   app.route('/customers/login')
     .post(customerValidator.login(), customerController.login);
 
+  app.route('/customers/facebook')
+    .post(customerValidator.loginWithFacebook(), customerController.loginWithFacebook);
+
   // 2. DEPARTMENTS 
   app.route('/departments')
     .get(departmentController.index);

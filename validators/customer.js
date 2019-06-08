@@ -69,6 +69,14 @@ module.exports =  {
           .isLength({ min: 3 })
     ];
   },
+  
+  loginWithFacebook: () => {
+    return [
+      check('access_token', `The 'access_token' field is required.`)
+          .exists()
+          .isString()
+    ];
+  },
 
   updateProfile: () => {
     return [
