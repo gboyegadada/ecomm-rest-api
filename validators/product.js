@@ -49,6 +49,7 @@ module.exports =  {
   newReview: () => {
     return [
       check('id')
+        .exists()
         .isInt({min: 0}).withMessage('The Product ID is not a number.')
         .custom(value => {
           return Product.find(value).then(product => {
@@ -56,9 +57,9 @@ module.exports =  {
           })
         }).withMessage('The Product ID does not exist.'),
       
-      check('review').isLength({min: 3}).withMessage('Review should more that 3 characterts long.'), 
+      check('review').exists().isLength({min: 3}).withMessage('Review should more that 3 characterts long.'), 
       
-      check('rating').isInt({min: 0, max: 10}).withMessage('Rating should be between 0 and 10.')
+      check('rating').exists().isInt({min: 0, max: 10}).withMessage('Rating should be between 0 and 10.')
     ];
   }
 };

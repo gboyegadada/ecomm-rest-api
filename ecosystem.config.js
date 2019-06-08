@@ -7,7 +7,7 @@ module.exports = {
     args: 'one two',
     instances: 2,
     autorestart: true,
-    watch: false,
+    watch: ['.', './controllers', './repositories', './validators'],
     max_memory_restart: '1G',
     env: {
       NODE_ENV: 'development'

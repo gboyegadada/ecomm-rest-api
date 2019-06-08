@@ -48,6 +48,9 @@ module.exports = app => {
   app.route('/customers/login')
     .post(customerValidator.login(), customerController.login);
 
+  app.route('/customers/facebook')
+    .post(customerValidator.loginWithFacebook(), customerController.loginWithFacebook);
+
   // 2. DEPARTMENTS 
   app.route('/departments')
     .get(departmentController.index);
@@ -103,5 +106,16 @@ module.exports = app => {
     
   app.route('/products')
     .get(productValidator.index(), productController.index);
+
+  // 6. CUSTOMERS
+  app.route('/customer')
+    .get(auth, customerController.getProfile)
+    .put([ auth, ...customerValidator.updateProfile() ], customerController.updateProfile);
+
+  app.route('/customers/address')
+    .put([ auth, ...customerValidator.updateAddress() ], customerController.updateAddress);
+
+  app.route('/customers/creditCard')
+    .put([ auth, ...customerValidator.updateCreditCard() ], customerController.updateCreditCard);
 
 };
