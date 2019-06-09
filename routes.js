@@ -136,13 +136,32 @@ module.exports = app => {
     .get([ auth, ...orderValidator.getShortDetail() ], orderController.getShortDetail);
   
   // 8. SHOPPING CART
+  app.route('/shoppingcart/generateUniqueId')
+    .get(cartController.generateUniqueId);
+
   app.route('/shoppingcart/add')
     .post(cartValidator.add(), cartController.add);
 
-  app.route('/shoppingcart/:cart_id')
-    .get(cartValidator.get(), cartController.getItems);
+  app.route('/shoppingcart/getSaved/:cart_id')
+    .get(cartValidator.getSaved(), cartController.getSaved);
 
   app.route('/shoppingcart/update/:item_id')
     .put(cartValidator.update(), cartController.update);
+    
+  app.route('/shoppingcart/moveToCart/:item_id')
+    .get(cartValidator.moveToCart(), cartController.moveToCart);
+    
+  app.route('/shoppingcart/saveForLater/:item_id')
+    .get(cartValidator.saveForLater(), cartController.saveForLater);
+    
+  app.route('/shoppingcart/removeProduct/:item_id')
+    .delete(cartValidator.removeItem(), cartController.removeItem);
+    
+  app.route('/shoppingcart/totalAmount/:cart_id')
+    .get(cartValidator.getTotalAmount(), cartController.getTotalAmount);
+
+  app.route('/shoppingcart/:cart_id')
+    .get(cartValidator.get(), cartController.getItems)
+    .delete(cartValidator.empty(), cartController.empty);
 
 };

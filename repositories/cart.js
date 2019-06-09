@@ -100,10 +100,11 @@ module.exports.findAll = (params = {}) => {
  *
  *     getItems().then(rows => rows.map())
  */
-module.exports.getItems = (cart_id) => {
+module.exports.getItems = (cart_id, buy_now = true) => {
     return db(`${TABLE} as i`)
             .leftJoin('product as p', 'i.product_id', 'p.product_id')
             .where('i.cart_id', cart_id)
+            .where('i.buy_now', buy_now)
             .select(
                 'i.item_id as item_id', 
                 'p.name as name', 
@@ -154,4 +155,51 @@ module.exports.updateItem = (id, params) => {
         .where({ item_id: id })
         .update(params)
         .then(res => module.exports.find(id));
+};
+
+/**
+ * Delete cart items (empty cart);
+ *
+ * @param {string} - A standard object param
+ * @return {Promise} A Promise
+ *
+ * @example
+ *
+ *     emptyCart(cart_id).then(() => void)
+ */
+module.exports.emptyCart = (cart_id) => {
+    return db(TABLE).where({ cart_id }).del();
+};
+
+/**
+ * Delete item;
+ *
+ * @param {string} - A standard object param
+ * @return {Promise} A Promise
+ *
+ * @example
+ *
+ *     emptyCart(cart_id).then(() => void)
+ */
+module.exports.removeItem = (item_id) => {
+    return db(TABLE).where({ item_id }).del();
+};
+
+/**
+ * Returns cart total.
+ *
+ * @param {string} - A unique string param
+ * @return {Promise} A Promise
+ *
+ * @example
+ *
+ *     getItems().then(rows => rows.map())
+ */
+module.exports.getTotalAmount = (cart_id) => {
+    return db(`${TABLE} as i`)
+            .leftJoin('product as p', 'i.product_id', 'p.product_id')
+            .where('i.cart_id', cart_id)
+            .where('i.buy_now', true)
+            .select(db.raw('sum(p.price*i.quantity) as total_amount'))
+            .timeout(1000);
 };
