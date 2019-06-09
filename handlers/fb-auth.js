@@ -1,4 +1,5 @@
 let {FB, FacebookApiException} = require('fb');
+let AuthenticationError = require('../errors/authentication-error');
 
 let doFacebookAuth = (access_token) => {
     return new Promise((resolve, reject) => {
