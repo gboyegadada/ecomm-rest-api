@@ -3,7 +3,7 @@ let filter = require('express-validator/filter');
 let validatorErrorFormatter = require('../handlers/validation-error-formatter');
 let bcrypt = require('bcrypt');
 let jwt = require('jsonwebtoken');
-let {FB, FacebookApiException} = require('fb');
+let { doFacebookAuth } = require('../handlers/fb-auth');
 
 // import Error classes
 let RouteNotFoundError = require('../errors/route-not-found');
@@ -42,31 +42,6 @@ let formatResponseObject = (customer) => {
     "accessToken": `Bearer ${token}`,
     "expires_in": "24h"
   }
-}
-
-let doFacebookAuth = (access_token) => {
-  return new Promise((resolve, reject) => {
-    
-    FB.setAccessToken(access_token);
-    FB.api(
-      '/me',
-      'GET',
-      {"fields":"id,email"},
-      (fbres) => {
-        if(!fbres || fbres.error) {
-            let e = !fbres ? 'Unknown error' : fbres.error;
-            reject(new AuthenticationError(`Facebook auth error: ${e.message}`, { param: 'access_token', code: 'USR_01' }))
-            return;
-        }
-
-        if(fbres.error) {
-          reject(new AuthenticationError(`Facebook auth error: ${fbres.error.message}`, { param: 'access_token', code: 'USR_01' }))
-        } else {
-            resolve(fbres);
-        }
-        
-      });
-  });
 }
 
 

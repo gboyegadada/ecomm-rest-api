@@ -130,7 +130,7 @@ describe(`Test /customers routes:`, function() {
 
   describe('3. Sign in with Facebook', function() {
 
-    const fb_access_token = 'EAAGb5RqMa5wBAH2CUZAvZAiNZA9N4ZCguC7dGZCS4sqpTEsucyRdy4D81VjpyXQ8msjCdR1E1iiBXUxwzPbxrTZBfaPZASFW4bsUhZB1Dy1MTIQa0QcI0dpMSZC2vZCqqi1nt0MUqxOuG6kLWoIMHDs0T2QBuWzNua9YQ4dFjp7XJaPu4rzdWg2cZCqzrZCqUT1wYfZCrgOZBvo1K2G0UCIcjCBYAiXOprlIARyRBhxmjVEp4GcgZDZD';
+    const fb_access_token = 'EAAGb5RqMa5wBAHX7QyjvSlfbDIl20kKFdpXCCsaO6BFYrmZA1npnXGazDSCVGoxm1wMhXWo0x2xZCcTPiGCOx9BCDOpJu3ZCebZCJfDzbgub0vVWju4shSqxFzVWZBhcRGl5YtMfA5dWpHfZBIAuQP5JpR9xgFCj0Q8FuSF4wLZBZBmVjLmkeRGrhDfmJsZC8m0S9o66QnXwdDr04fuG7RD6WADFmVaDzTZAgFrOfvYP9nywZDZD';
 
     it('returns 200 "OK" when access_token is valid', function(done) {
 
@@ -173,7 +173,7 @@ describe(`Test /customers routes:`, function() {
   describe('4. Customer Profile', function() {
 
     // create a JWT
-    let token = jwt.sign({ id: 1 }, process.env.AUTH0_SECRET, {
+    let token = jwt.sign({ id: 1, email: EMAIL }, process.env.AUTH0_SECRET, {
       expiresIn: '10s',
       audience: process.env.AUTH0_ID
     });

@@ -46,6 +46,9 @@ app.use(helmet());
 // parse JSON in the body of requests
 app.use(bp.json());
 
+// for parsing application/x-www-form-urlencoded
+app.use(bp.urlencoded({ extended: true })); 
+
 /**
  * Routes
  */
