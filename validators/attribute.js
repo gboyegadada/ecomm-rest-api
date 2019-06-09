@@ -9,13 +9,19 @@ module.exports =  {
   
   getValues: () => {
     return [
-      check('id').isInt({min: 0}).withMessage('The Value ID is not a number.')
+      check('id')
+      .exists()
+      .isInt({min: 0})
+      .withMessage('The Value ID is not a number.')
     ];
   },
   
   getByProduct: () => {
     return [
-      check('id').isInt({min: 0}).withMessage('The Product ID is not a number.')
+      check('id')
+      .exists()
+      .isInt({min: 0})
+      .withMessage('The Product ID is not a number.')
     ];
   }
 };

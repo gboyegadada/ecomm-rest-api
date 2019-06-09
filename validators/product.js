@@ -24,25 +24,37 @@ module.exports =  {
   
   getByDepartment: () => {
     return [
-      check('id').isInt({min: 0}).withMessage('The Department ID is not a number.')
+      check('id')
+      .exists()
+      .isInt({min: 0})
+      .withMessage('The Department ID is not a number.')
     ];
   },
   
   getByCategory: () => {
     return [
-      check('id').isInt({min: 0}).withMessage('The Category ID is not a number.')
+      check('id')
+      .exists()
+      .isInt({min: 0})
+      .withMessage('The Category ID is not a number.')
     ];
   },
   
   getLocations: () => {
     return [
-      check('id').isInt({min: 0}).withMessage('The Product ID is not a number.')
+      check('id')
+      .exists()
+      .isInt({min: 0})
+      .withMessage('The Product ID is not a number.')
     ];
   },
   
   getReviews: () => {
     return [
-      check('id').isInt({min: 0}).withMessage('The Product ID is not a number.')
+      check('id')
+      .exists()
+      .isInt({min: 0})
+      .withMessage('The Product ID is not a number.')
     ];
   },
   

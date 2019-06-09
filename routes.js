@@ -8,6 +8,8 @@ let departmentController = require('./controllers/department');
 let categoryController = require('./controllers/category');
 let attributeController = require('./controllers/attribute');
 let productController = require('./controllers/product');
+let orderController = require('./controllers/order');
+let cartController = require('./controllers/cart');
 
 // import validators
 let customerValidator = require('./validators/customer');
@@ -15,6 +17,8 @@ let departmentValidator = require('./validators/department');
 let categoryValidator = require('./validators/category');
 let attributeValidator = require('./validators/attribute');
 let productValidator = require('./validators/product');
+let orderValidator = require('./validators/order');
+let cartValidator = require('./validators/cart');
 
 
 // auth0 JWT; reject requests that aren't authorized
@@ -117,5 +121,28 @@ module.exports = app => {
 
   app.route('/customers/creditCard')
     .put([ auth, ...customerValidator.updateCreditCard() ], customerController.updateCreditCard);
+  
+  // 7. ORDERS
+  app.route('/orders')
+    .post([ auth, ...orderValidator.create() ], orderController.create);
+
+  app.route('/orders/:id')
+    .get([ auth, ...orderValidator.get() ], orderController.get);
+
+  app.route('/orders/inCustomer/:id')
+    .get([ auth, ...orderValidator.index() ], orderController.index);
+
+  app.route('/orders/shortDetail/:id')
+    .get([ auth, ...orderValidator.getShortDetail() ], orderController.getShortDetail);
+  
+  // 8. SHOPPING CART
+  app.route('/shoppingcart/add')
+    .post(cartValidator.add(), cartController.add);
+
+  app.route('/shoppingcart/:cart_id')
+    .get(cartValidator.get(), cartController.getItems);
+
+  app.route('/shoppingcart/update/:item_id')
+    .put(cartValidator.update(), cartController.update);
 
 };

@@ -21,13 +21,19 @@ module.exports =  {
   
   getByDepartment: () => {
     return [
-      check('id').isInt({min: 0}).withMessage('The Department ID is not a number.')
+      check('id')
+      .exists()
+      .isInt({min: 0})
+      .withMessage('The Department ID is not a number.')
     ];
   },
   
   getByProduct: () => {
     return [
-      check('id').isInt({min: 0}).withMessage('The Product ID is not a number.')
+      check('id')
+      .exists()
+      .isInt({min: 0})
+      .withMessage('The Product ID is not a number.')
     ];
   }
 };
