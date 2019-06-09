@@ -27,6 +27,7 @@ module.exports.find = (id) => {
             .leftJoin('product as p', 'i.product_id', 'p.product_id')
             .where('i.item_id', id)
             .select(
+                'i.cart_id as cart_id',
                 'i.item_id as item_id', 
                 'p.name as name', 
                 'i.attributes as attributes', 
@@ -154,7 +155,8 @@ module.exports.updateItem = (id, params) => {
     return db(TABLE)
         .where({ item_id: id })
         .update(params)
-        .then(res => module.exports.find(id));
+        .then(res => module.exports.find(id))
+        .then(item => module.exports.getItems(item.cart_id));
 };
 
 /**

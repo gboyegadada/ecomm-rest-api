@@ -59,7 +59,7 @@ module.exports = {
       const { quantity } = filter.matchedData(req, {locations: ['body']});
 
       Cart.updateItem(req.params.item_id, { quantity })
-      .then(item => res.json(item))
+      .then(rows => res.json(rows))
       .catch(next);
     } else {
       next(new ValidationError('Validation failed!', result));
