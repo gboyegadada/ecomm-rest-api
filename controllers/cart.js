@@ -43,8 +43,7 @@ module.exports = {
       Cart.addItem({
         cart_id,
         product_id, 
-        attributes,
-        quantity: 1
+        attributes
       })
       .then(rows => res.json(rows))
       .catch(next);

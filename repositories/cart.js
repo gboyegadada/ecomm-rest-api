@@ -127,10 +127,16 @@ module.exports.getItems = (cart_id, buy_now = true) => {
  *
  * @example
  *
- *     addItem({ name: 'Leather Shoes'}).then(customer => console.log(customer.name))
+ *     addItem({ 
+ *                 cart_id: 'xvuyx86xc-45rt',
+ *                 product_id: 1,
+ *                 attributes: 'Red'
+ *     })
+ *     .then(customer => console.log(customer.name))
  */
 module.exports.addItem = (params) => {
-    let {cart_id, product_id, attributes, quantity} = params;
+    let {cart_id, product_id, attributes, quantity = 1} = params;
+    params.quantity = quantity;
 
     return db(TABLE)
         .where({ cart_id, product_id })

@@ -1,6 +1,6 @@
 const db = require('../db');
 
-const TABLE = 'department';
+const TABLE = 'tax';
 
 /**
  * Returns single row selected using `params`;
@@ -10,7 +10,7 @@ const TABLE = 'department';
  *
  * @example
  *
- *     find(1).then(department => console.log(department.name))
+ *     find(1).then(tax => console.log(tax.name))
  */
 exports.find = (id) => {
     return db(TABLE)
@@ -27,7 +27,7 @@ exports.find = (id) => {
  *
  * @example
  *
- *     findOneBy({ name: 'Leather Shoes'}).then(department => console.log(department.name))
+ *     findOneBy({ name: 'Leather Shoes'}).then(tax => console.log(tax.name))
  */
 module.exports.findOneBy = (params, done, next) => {
     return db(TABLE)
@@ -38,7 +38,7 @@ module.exports.findOneBy = (params, done, next) => {
 };
 
 /**
- * Returns all departments.
+ * Returns all taxes.
  *
  * @param {object} - A standard object param
  * @return {Promise} A Promise
