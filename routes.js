@@ -10,6 +10,7 @@ let attributeController = require('./controllers/attribute');
 let productController = require('./controllers/product');
 let orderController = require('./controllers/order');
 let cartController = require('./controllers/cart');
+let taxController = require('./controllers/tax');
 
 // import validators
 let customerValidator = require('./validators/customer');
@@ -19,6 +20,7 @@ let attributeValidator = require('./validators/attribute');
 let productValidator = require('./validators/product');
 let orderValidator = require('./validators/order');
 let cartValidator = require('./validators/cart');
+let taxValidator = require('./validators/tax');
 
 
 // auth0 JWT; reject requests that aren't authorized
@@ -163,5 +165,12 @@ module.exports = app => {
   app.route('/shoppingcart/:cart_id')
     .get(cartValidator.get(), cartController.getItems)
     .delete(cartValidator.empty(), cartController.empty);
+
+  // 9. TAX 
+  app.route('/tax')
+    .get(taxController.index);
+
+  app.route('/tax/:tax_id')
+    .get(taxValidator.get(), taxController.get);
 
 };
