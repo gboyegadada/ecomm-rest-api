@@ -14,33 +14,31 @@ let ValidationError = require('../errors/validation-error');
  * @param {string} cart_id 
  */
 let addLineItems = (order, cart_id) => {
-  Cart.getItems(cart_id)
-  .then(cartItems => {
-    cartItems.forEach(item => {
-      Order.createLineItem({
-        order_id: order.order_id,
-        product_id: item.product_id,
-        attributes: item.attributes,
-        product_name: item.name,
-        quantity: item.quantity,
-        unit_cost: item.price
-      });
-    });
-  });
+  return Cart.getItems(cart_id)
+        .then(cartItems => {
+          let total_amount = 0;
+          cartItems.forEach(item => {
+            let itemPromise = Order.createLineItem({
+              order_id: order.order_id,
+              product_id: item.product_id,
+              attributes: item.attributes,
+              product_name: item.name,
+              quantity: item.quantity,
+              unit_cost: item.price
+            });
+            
+            total_amount += item.subtotal;
+          });
 
-  return order;
+          return Order.update(order.order_id, { total_amount })
+        });
 }
 
 module.exports = {
   index: (req, res, next) => {
-    let result = validatorErrorFormatter(req);
-      if (result.isEmpty()) { 
-      Order.findAll({ customer_id: req.params.id})
+      Order.findAll({ customer_id: req.user.id})
       .then(rows => res.json(rows))
       .catch(next);
-    } else {
-      next(new ValidationError('Validation failed!', result));
-    }
   },
   
   create: (req, res, next) => {

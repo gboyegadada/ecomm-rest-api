@@ -100,3 +100,21 @@ module.exports.createLineItem = (params) => {
             .timeout(1000)
             .then(rows => module.exports.find(rows[0]));
 };
+
+/**
+ * Update and return single row;
+ *
+ * @param {integer} - A integer param
+ * @param {object} - A standard object param
+ * @return {Promise} A Promise
+ *
+ * @example
+ *
+ *     update({ total_amount: 20.00}).then(order => console.log(order.order_id))
+ */
+module.exports.update = (id, params) => {
+    return db(TABLE)
+        .where({ order_id: id })
+        .update(params)
+        .then(res => module.exports.find(id));
+};

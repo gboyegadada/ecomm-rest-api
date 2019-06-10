@@ -126,14 +126,14 @@ module.exports = app => {
   app.route('/orders')
     .post([ auth, ...orderValidator.create() ], orderController.create);
 
-  app.route('/orders/:id')
-    .get([ auth, ...orderValidator.get() ], orderController.get);
-
-  app.route('/orders/inCustomer/:id')
-    .get([ auth, ...orderValidator.index() ], orderController.index);
+  app.route('/orders/inCustomer')
+    .get(auth, orderController.index);
 
   app.route('/orders/shortDetail/:id')
     .get([ auth, ...orderValidator.getShortDetail() ], orderController.getShortDetail);
+
+  app.route('/orders/:id')
+    .get([ auth, ...orderValidator.get() ], orderController.get);
   
   // 8. SHOPPING CART
   app.route('/shoppingcart/generateUniqueId')

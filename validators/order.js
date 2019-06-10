@@ -1,15 +1,6 @@
 const { check } = require('express-validator/check');
 
 module.exports =  {
-  index: () => {
-    return [
-      check('id')
-      .exists()
-      .isInt({min: 0})
-      .withMessage('The Customer ID is not a number.')
-    ];
-  }, 
-
   get: () => {
     return [
       check('id')
