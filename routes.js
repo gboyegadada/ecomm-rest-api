@@ -11,6 +11,8 @@ let productController = require('./controllers/product');
 let orderController = require('./controllers/order');
 let cartController = require('./controllers/cart');
 let taxController = require('./controllers/tax');
+let regionController = require('./controllers/shipping-region');
+let stripeController = require('./controllers/stripe');
 
 // import validators
 let customerValidator = require('./validators/customer');
@@ -21,6 +23,8 @@ let productValidator = require('./validators/product');
 let orderValidator = require('./validators/order');
 let cartValidator = require('./validators/cart');
 let taxValidator = require('./validators/tax');
+let regionValidator = require('./validators/shipping-region');
+let stripeValidator = require('./validators/stripe');
 
 
 // auth0 JWT; reject requests that aren't authorized
@@ -172,5 +176,19 @@ module.exports = app => {
 
   app.route('/tax/:tax_id')
     .get(taxValidator.get(), taxController.get);
+
+  // 10. SHIPPING REGIONS
+  app.route('/shipping/regions')
+    .get(regionController.index);
+
+  app.route('/shipping/regions/:shipping_region_id')
+    .get(regionValidator.get(), regionController.get);
+
+  // 11. STRIPE CHARGE
+  app.route('/stripe/charge')
+    .post([ auth, ...stripeValidator.charge() ], stripeController.charge);
+
+  app.route('/stripe/webhooks')
+    .post(stripeController.webhooks);
 
 };

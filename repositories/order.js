@@ -2,6 +2,25 @@ const db = require('../db');
 
 const TABLE = 'orders';
 
+
+/**
+ * Returns bool;
+ *
+ * @param {integer} - A positive ineteger
+ * @return {Promise} A Promise
+ *
+ * @example
+ *
+ *     exists(1).then(order_exists => console.log(order_exists ? 'True' : 'False'))
+ */
+exports.exists = (order_id) => {
+    return db(TABLE)
+            .where({order_id})
+            .select(db.raw('count(1) as count'))
+            .timeout(1000)
+            .then(res => res[0].count > 0)
+};
+
 /**
  * Returns single row selected using `id`;
  *
@@ -29,7 +48,7 @@ exports.find = (id) => {
  *
  *     findOneBy({ name: 'Leather Shoes'}).then(order => console.log(order.name))
  */
-module.exports.findOneBy = (params, done, next) => {
+exports.findOneBy = (params, done, next) => {
     return db(TABLE)
         .where(params)
         .timeout(1000)
@@ -77,11 +96,11 @@ exports.getOrderDetails = (order_id) => {
  *
  *     create({ name: 'Leather Shoes'}).then(order => console.log(order.name))
  */
-module.exports.create = (params) => {
+exports.create = (params) => {
     return db(TABLE)
             .insert(params)
             .timeout(1000)
-            .then(rows => module.exports.find(rows[0]));
+            .then(rows => exports.find(rows[0]));
 };
 
 /**
@@ -94,11 +113,11 @@ module.exports.create = (params) => {
  *
  *     createLineItem({ name: 'Leather Shoes'}).then(item => console.log(item.name))
  */
-module.exports.createLineItem = (params) => {
+exports.createLineItem = (params) => {
     return db('order_detail')
             .insert(params)
             .timeout(1000)
-            .then(rows => module.exports.find(rows[0]));
+            .then(rows => exports.find(rows[0]));
 };
 
 /**
@@ -112,9 +131,9 @@ module.exports.createLineItem = (params) => {
  *
  *     update({ total_amount: 20.00}).then(order => console.log(order.order_id))
  */
-module.exports.update = (id, params) => {
+exports.update = (id, params) => {
     return db(TABLE)
         .where({ order_id: id })
         .update(params)
-        .then(res => module.exports.find(id));
+        .then(res => exports.find(id));
 };
