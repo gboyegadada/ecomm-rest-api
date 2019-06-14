@@ -1,6 +1,7 @@
 'use strict';
-let jwt = require('express-jwt'); // for authentication with Auth0 JWT's
+const redisCacheMiddleware = require('./middleware/redisCacheMiddleware');
 const { check } = require('express-validator/check');
+
 
 // import controllers
 let customerController = require('./controllers/customer');
@@ -63,59 +64,59 @@ module.exports = app => {
 
   // 2. DEPARTMENTS 
   app.route('/departments')
-    .get(departmentController.index);
+    .get(redisCacheMiddleware, departmentController.index);
 
   app.route('/departments/:id')
-    .get(departmentValidator.get(), departmentController.get);
+    .get([ redisCacheMiddleware, ...departmentValidator.get() ], departmentController.get);
 
   // 3. CATEGORIES
   app.route('/categories/inDepartment/:id')
-    .get(categoryValidator.getByDepartment(), categoryController.getByDepartment);
+    .get([redisCacheMiddleware, ...categoryValidator.getByDepartment() ], categoryController.getByDepartment);
 
   app.route('/categories/inProduct/:id')
-    .get(categoryValidator.getByProduct(), categoryController.getByProduct);
+    .get([ redisCacheMiddleware, ...categoryValidator.getByProduct() ], categoryController.getByProduct);
 
   app.route('/categories/:id')
-    .get(categoryValidator.get(), categoryController.get);
+    .get([ redisCacheMiddleware, ...categoryValidator.get() ], categoryController.get);
     
   app.route('/categories')
-    .get(categoryValidator.index(), categoryController.index);
+    .get([ redisCacheMiddleware, ...categoryValidator.index() ], categoryController.index);
     
   // 4. ATTRIBUTES
   app.route('/attributes/inProduct/:id')
-    .get(attributeValidator.getByProduct(), attributeController.getByProduct);
+    .get([ redisCacheMiddleware, ...attributeValidator.getByProduct() ], attributeController.getByProduct);
 
   app.route('/attributes/values/:id')
-    .get(attributeValidator.getValues(), attributeController.getValues);
+    .get([ redisCacheMiddleware, ...attributeValidator.getValues() ], attributeController.getValues);
 
   app.route('/attributes/:id')
-    .get(attributeValidator.get(), attributeController.get);
+    .get([ redisCacheMiddleware, ...attributeValidator.get() ], attributeController.get);
     
   app.route('/attributes')
-    .get(attributeController.index);
+    .get(redisCacheMiddleware, attributeController.index);
     
   // 5. PRODUCTS
   app.route('/products/inCategory/:id')
-    .get(productValidator.getByCategory(), productController.getByCategory);
+    .get([ redisCacheMiddleware, ...productValidator.getByCategory() ], productController.getByCategory);
 
   app.route('/products/inDepartment/:id')
-    .get(productValidator.getByDepartment(), productController.getByDepartment);
+    .get([ redisCacheMiddleware, ...productValidator.getByDepartment() ], productController.getByDepartment);
 
   app.route('/products/:id/details')
-    .get(productValidator.get(), productController.get);
+    .get([ redisCacheMiddleware, ...productValidator.get() ], productController.get);
 
   app.route('/products/:id/locations')
-    .get(productValidator.getLocations(), productController.getLocations);
+    .get([ redisCacheMiddleware, ...productValidator.getLocations() ], productController.getLocations);
 
   app.route('/products/:id/reviews')
-    .get(productValidator.getReviews(), productController.getReviews)
+    .get([ redisCacheMiddleware, ...productValidator.getReviews() ], productController.getReviews)
     .post([ auth, ...productValidator.newReview() ], productController.newReview);
 
   app.route('/products/:id')
-    .get(productValidator.get(), productController.get);
+    .get([ redisCacheMiddleware, ...productValidator.get() ], productController.get);
     
   app.route('/products')
-    .get(productValidator.index(), productController.index);
+    .get([ redisCacheMiddleware, ...productValidator.index() ], productController.index);
 
   // 6. CUSTOMERS
   app.route('/customer')
@@ -149,7 +150,7 @@ module.exports = app => {
     .post(cartValidator.add(), cartController.add);
 
   app.route('/shoppingcart/getSaved/:cart_id')
-    .get(cartValidator.getSaved(), cartController.getSaved);
+    .get([ redisCacheMiddleware, ...cartValidator.getSaved() ], cartController.getSaved);
 
   app.route('/shoppingcart/update/:item_id')
     .put(cartValidator.update(), cartController.update);
@@ -172,17 +173,17 @@ module.exports = app => {
 
   // 9. TAX 
   app.route('/tax')
-    .get(taxController.index);
+    .get(redisCacheMiddleware, taxController.index);
 
   app.route('/tax/:tax_id')
-    .get(taxValidator.get(), taxController.get);
+    .get([ redisCacheMiddleware, ...taxValidator.get() ], taxController.get);
 
   // 10. SHIPPING REGIONS
   app.route('/shipping/regions')
-    .get(regionController.index);
+    .get(redisCacheMiddleware, regionController.index);
 
   app.route('/shipping/regions/:shipping_region_id')
-    .get(regionValidator.get(), regionController.get);
+    .get([ redisCacheMiddleware, ...regionValidator.get() ], regionController.get);
 
   // 11. STRIPE CHARGE
   app.route('/stripe/charge')
