@@ -1,6 +1,6 @@
 const { check } = require('express-validator/check');
 const { getCode } = require('country-list');
-const db = require('../db');
+const db = require('../services/db');
 let Customer = require('../repositories/customer');
 
 module.exports =  {

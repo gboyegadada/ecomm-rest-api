@@ -2,7 +2,7 @@
 let exp = require('express');     // to set up an express app
 let bp  = require('body-parser'); // for parsing JSON in request bodies
 let helmet = require('helmet'); // For header security
-let expressValidator = require('express-validator');
+let compression = require('compression')
 let rateLimiterMiddleware = require('./middleware/rateLimiterMiddleware');
 
 // import Error classes
@@ -48,6 +48,9 @@ app.use(bp.json());
 
 // for parsing application/x-www-form-urlencoded
 app.use(bp.urlencoded({ extended: true })); 
+
+// Use gzip compression
+app.use(compression());
 
 /**
  * Routes
