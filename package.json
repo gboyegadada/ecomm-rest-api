@@ -4,7 +4,7 @@
   "description": "An eCommerce REST API based on NodeJS, Express, MongoDB, Mongoose using JSON Web Tokens (JWT).",
   "main": "index.js",
   "scripts": {
-    "test": "./reset-db.sh && nyc --reporter=lcov --reporter=text mocha --exit",
+    "test": "snyk test && ./reset-db.sh && nyc --reporter=lcov --reporter=text mocha --exit",
     "watch": "nyc mocha --watch",
     "start": "nodemon index.js",
     "cover": "nyc --reporter=html --reporter=text mocha --exit"
@@ -60,6 +60,7 @@
     "nodemon": "^1.19.1",
     "nyc": "^14.1.1",
     "randomstring": "^1.1.5",
+    "snyk": "^1.178.1",
     "supertest": "^4.0.2"
   }
 }
