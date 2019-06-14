@@ -14,7 +14,7 @@ before_install:
   - mysql -e 'CREATE DATABASE IF NOT EXISTS app;'
 before_script:
   - mysql --version
-  - mysql -u root < ./database/tshirtshop.sql
+  - chmod +x ./reset-db.sh
 script:
   - snyk test
   - npm test
