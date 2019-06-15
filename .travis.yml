@@ -15,7 +15,6 @@ before_script:
   - mysql --version
   - chmod +x ./reset-db.sh
 script:
-  - snyk test
   - npm test
 after_script:
   - cat ./coverage/lcov.info | ./node_modules/.bin/coveralls
