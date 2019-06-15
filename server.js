@@ -1,5 +1,6 @@
 // import libraries
 let exp = require('express');     // to set up an express app
+let argv = require('minimist')(process.argv.slice(2));
 let bp  = require('body-parser'); // for parsing JSON in request bodies
 let helmet = require('helmet'); // For header security
 let compression = require('compression')
@@ -16,6 +17,18 @@ require('dotenv').config();
 
 // initialize app
 let app = exp();
+let subpath = exp();
+
+let swagger = require('swagger-node-express').createNew(subpath);
+app.use(exp.static('dist'));
+swagger.setApiInfo({
+  title: "eCommerce API",
+  description: "Documentation for Ecommerce API.",
+  termsOfServiceUrl: "",
+  contact: "yourname@something.com",
+  license: "",
+  licenseUrl: ""
+});
 
 /**
  * Preflight Middleware
