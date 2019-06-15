@@ -99,6 +99,9 @@ module.exports = app => {
   app.route('/products/inCategory/:id')
     .get([ redisCacheMiddleware, ...productValidator.getByCategory() ], productController.getByCategory);
 
+  app.route('/products/search')
+    .get([ redisCacheMiddleware, ...productValidator.search() ], productController.search);
+
   app.route('/products/inDepartment/:id')
     .get([ redisCacheMiddleware, ...productValidator.getByDepartment() ], productController.getByDepartment);
 

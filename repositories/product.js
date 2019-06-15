@@ -38,6 +38,28 @@ module.exports.findOneBy = (params, done, next) => {
 };
 
 /**
+ * Returns matching rows;
+ *
+ * @param {object} - A standard object param
+ * @param {string} - A standard object param
+ * @return {Promise} A Promise
+ *
+ * @example
+ *
+ *     search(query, sort).then(rows => rows.map())
+ */
+module.exports.search = (query, sort = { all_words: 'on', page: 1, limit: 20, description_length: 200}) => {
+    let offset = (sort.page-1) * sort.limit;
+
+    return db.raw(
+                'Call catalog_search(?, ?, ?, ?, ?)',
+                [query, sort.all_words, sort.description_length, sort.limit, offset]
+            )
+            .then(res => { console.dir(res[0][0], {depth: null}); return res[0][0]; })
+            .timeout(1000);
+};
+
+/**
  * Returns all categories.
  *
  * @param {object} - A standard object param

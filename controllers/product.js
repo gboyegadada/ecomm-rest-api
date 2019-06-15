@@ -1,4 +1,5 @@
 let Product = require('../repositories/product');
+let filter = require('express-validator/filter');
 let validatorErrorFormatter = require('../handlers/validation-error-formatter');
 
 // import Error classes
@@ -18,6 +19,25 @@ module.exports = {
         };
 
         Product.findAll({}, sort)
+        .then(rows => res.json({ "count": rows.length, "rows": rows }))
+        .catch(next);
+      } else {
+        next(new ValidationError('Validation failed!', result));
+      }
+  },
+
+  search: (req, res, next) => {
+    let result = validatorErrorFormatter(req);
+      if (result.isEmpty()) { 
+        const { query_string, all_words='on', page=1, limit=20, description_length=200} = filter.matchedData(req, {locations: ['query']});
+        let sort = { 
+          page, 
+          limit, 
+          all_words, 
+          description_length
+        };
+
+        Product.search(query_string, sort)
         .then(rows => res.json({ "count": rows.length, "rows": rows }))
         .catch(next);
       } else {
