@@ -16,12 +16,18 @@ require('dotenv').config();
 
 // initialize app
 let app = exp();
+app.use('/docs', exp.static('dist'));
+
+let swagger = require('swagger-node-express');
+
+// Couple the application to the Swagger module.
+swagger.setAppHandler(app);
 
 /**
  * Preflight Middleware
  */
 // Rate limiter middleware to prevent DDoS (enable in ** PRODUCTION **)
-if ('production' === process.env.NODE_ENV || 'development' === process.env.NODE_ENV) {
+if ('production' === process.env.NODE_ENV) {
   app.use(rateLimiterMiddleware);
 }
 

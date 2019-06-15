@@ -117,8 +117,26 @@ describe(`Test /products routes:`, function() {
     });
 
   });
+  
+  describe('2. Search products with pagination', function(done) {
 
-  describe('2. Fetch single product by :id', function(done) {
+    it('should return records containing "morocco"', function(done) {
+      request(app).get('/products/search?query_string=morocco')
+        .set('Accept', 'application/json')
+        .expect('Content-Type', /json/)
+        .expect(200)
+        .then(res => {
+          expect(res.body.count).to.be.at.least(1);
+          expect(res.body.rows[0]).to.have.property('product_id');
+          expect(res.body.rows[0].description).to.contain('Morocco');
+          
+          done();
+        }, done);
+    });
+
+  });
+
+  describe('3. Fetch single product by :id', function(done) {
 
     it('returns 200 "OK" with single record', function(done) {
       request(app).get('/products/1')
@@ -163,7 +181,7 @@ describe(`Test /products routes:`, function() {
   });
 
   
-  describe('3. Fetch product details for product :id', function(done) {
+  describe('4. Fetch product details for product :id', function(done) {
     let product_id = 45;
 
     it('returns 200 "OK" with single record', function(done) {
@@ -183,7 +201,7 @@ describe(`Test /products routes:`, function() {
 
   });
 
-  describe('4. Fetch product locations for product :id', function(done) {
+  describe('5. Fetch product locations for product :id', function(done) {
     let product_id = 45;
 
     it('returns 200 "OK" with single record', function(done) {
@@ -203,7 +221,7 @@ describe(`Test /products routes:`, function() {
 
   });
 
-  describe('5. Create product reviews for product :id', function(done) {
+  describe('6. Create product reviews for product :id', function(done) {
     let product_id = 45;
     let review = {
       "review": "Hey Jimmy man!!!",
@@ -256,7 +274,7 @@ describe(`Test /products routes:`, function() {
     });
   });
   
-  describe('6. Fetch product reviews for product :id', function(done) {
+  describe('7. Fetch product reviews for product :id', function(done) {
     let product_id = 45;
 
     it('returns 200 "OK" with multiple records', function(done) {

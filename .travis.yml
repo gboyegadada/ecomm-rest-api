@@ -11,12 +11,10 @@ before_install:
   - npm install -g nodemon mocha nyc snyk
   - rm -f .yarnclean
   - cp -n .env.travis .env
-  - mysql -e 'CREATE DATABASE IF NOT EXISTS app;'
 before_script:
   - mysql --version
   - chmod +x ./reset-db.sh
 script:
-  - snyk test
   - npm test
 after_script:
   - cat ./coverage/lcov.info | ./node_modules/.bin/coveralls

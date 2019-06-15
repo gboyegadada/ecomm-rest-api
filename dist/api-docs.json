@@ -1,0 +1,2515 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "version": "1.0.0",
+      "title": "eCommerce API",
+      "description": "Documentation for Ecommerce API."
+    },
+    "schemes": [
+      "http" 
+    ],
+    "host": "",
+    "consumes": [
+      "application/json",
+      "application/x-www-form-urlencoded",
+      "multipart/form-data"
+    ],
+    "tags": [
+      {
+        "name": "departments",
+        "description": "Everything about Department"
+      },
+      {
+        "name": "categories",
+        "description": "Everything about Categories"
+      },
+      {
+        "name": "attributes",
+        "description": "Everything about Attributes"
+      },
+      {
+        "name": "products",
+        "description": "Everything about Products"
+      },
+      {
+        "name": "customers",
+        "description": "Everything about Customers"
+      },
+      {
+        "name": "orders",
+        "description": "Everything about Orders"
+      },
+      {
+        "name": "shoppingcart",
+        "description": "Everything about Shopping Cart"
+      },
+      {
+        "name": "tax",
+        "description": "Everything about Department"
+      },
+      {
+        "name": "shipping",
+        "description": "Everything about Shippings"
+      },
+      {
+        "name": "stripe",
+        "description": "Everything about Stripe Ingregation and Webhooks"
+      }
+    ],
+    "definitions": {
+      "Department": {
+        "properties": {
+          "department_id": {
+            "type": "integer",
+            "example": 1
+          },
+          "name": {
+            "type": "string",
+            "example": "Regional"
+          },
+          "description": {
+            "type": "string",
+            "example": "Proud of your country? Wear a T-shirt with a national symbol stamp!"
+          }
+        }
+      },
+      "Category": {
+        "properties": {
+          "category_id": {
+            "type": "integer",
+            "example": 1
+          },
+          "name": {
+            "type": "string",
+            "example": "French"
+          },
+          "description": {
+            "type": "string",
+            "example": "The French have always had an eye for beauty. One look at the T-shirts below and you'll see that same appreciation has been applied abundantly to their postage stamps. Below are some of our most beautiful and colorful T-shirts, so browse away! And don't forget to go all the way to the bottom - you don't want to miss any of them!"
+          },
+          "department_id": {
+            "type": "integer",
+            "example": 1
+          }
+        }
+      },
+      "CategoryBasic": {
+        "properties": {
+          "category_id": {
+            "type": "integer",
+            "example": 1
+          },
+          "department_id": {
+            "type": "integer",
+            "example": 1
+          },
+          "name": {
+            "type": "string",
+            "example": "French"
+          }
+        }
+      },
+      "Product": {
+        "properties": {
+          "product_id": {
+            "type": "integer",
+            "example": 2
+          },
+          "name": {
+            "type": "string",
+            "example": "Chartres Cathedral"
+          },
+          "description": {
+            "type": "string",
+            "example": "\"The Fur Merchants\". Not all the beautiful stained glass in the great cathedrals depicts saints and angels! Lay aside your furs for the summer and wear this beautiful T-shirt!"
+          },
+          "price": {
+            "type": "string",
+            "example": "16.95"
+          },
+          "discounted_price": {
+            "type": "string",
+            "example": "15.95"
+          },
+          "thumbnail": {
+            "type": "string",
+            "example": "chartres-cathedral-thumbnail.gif"
+          }
+        }
+      },
+      "ProductInDepartment": {
+        "properties": {
+          "product_id": {
+            "type": "integer",
+            "example": 2
+          },
+          "name": {
+            "type": "string",
+            "example": "Chartres Cathedral"
+          },
+          "description": {
+            "type": "string",
+            "example": "\"The Fur Merchants\". Not all the beautiful stained glass in the great cathedrals depicts saints and angels! Lay aside your furs for the summer and wear this beautiful T-shirt!"
+          },
+          "price": {
+            "type": "string",
+            "example": "16.95"
+          },
+          "discounted_price": {
+            "type": "string",
+            "example": "15.95"
+          },
+          "thumbnail": {
+            "type": "string",
+            "example": "chartres-cathedral-thumbnail.gif"
+          },
+          "display": {
+            "type": "string",
+            "example": "3"
+          }
+        }
+      },
+      "ProductComplete": {
+        "properties": {
+          "product_id": {
+            "type": "integer",
+            "example": 2
+          },
+          "name\"": {
+            "type": "string",
+            "example": "Chartres Cathedral"
+          },
+          "description": {
+            "type": "string",
+            "example": "\"The Fur Merchants\". Not all the beautiful stained glass in the great cathedrals depicts saints and angels! Lay aside your furs for the summer and wear this beautiful T-shirt!"
+          },
+          "price": {
+            "type": "string",
+            "example": "16.95"
+          },
+          "discounted_price": {
+            "type": "string",
+            "example": "15.95"
+          },
+          "image": {
+            "type": "string",
+            "example": "chartres-cathedral.gif"
+          },
+          "image2": {
+            "type": "string",
+            "example": "chartres-cathedral2.gif"
+          },
+          "thumbnail": {
+            "type": "string",
+            "example": "chartres-cathedral-thumbnail.gif"
+          },
+          "display": {
+            "type": "integer",
+            "example": 0
+          }
+        }
+      },
+      "ProductDetail": {
+        "properties": {
+          "product_id": {
+            "type": "integer",
+            "example": 2
+          },
+          "name": {
+            "type": "string",
+            "example": "Chartres Cathedral"
+          },
+          "description": {
+            "type": "string",
+            "example": "\"The Fur Merchants\". Not all the beautiful stained glass in the great cathedrals depicts saints and angels! Lay aside your furs for the summer and wear this beautiful T-shirt!"
+          },
+          "price": {
+            "type": "string",
+            "example": "16.95"
+          },
+          "discounted_price": {
+            "type": "string",
+            "example": "15.95"
+          },
+          "image": {
+            "type": "string",
+            "example": "chartres-cathedral.gif"
+          },
+          "image2": {
+            "type": "string",
+            "example": "chartres-cathedral2.gif"
+          }
+        }
+      },
+      "ProductLocations": {
+        "properties": {
+          "category_id": {
+            "type": "integer",
+            "example": 1
+          },
+          "category_name": {
+            "type": "string",
+            "example": "French"
+          },
+          "department_id": {
+            "type": "integer",
+            "example": 1
+          },
+          "department_name": {
+            "type": "string",
+            "example": "Regional"
+          }
+        }
+      },
+      "Review": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Eder Taveira"
+          },
+          "review": {
+            "type": "string",
+            "example": "That's a good product. The best for me."
+          },
+          "rating": {
+            "type": "integer",
+            "example": 5
+          },
+          "created_on": {
+            "type": "string",
+            "example": "2019-02-17 13:57:29"
+          }
+        }
+      },
+      "Customer": {
+        "properties": {
+          "customer_id": {
+            "type": "integer",
+            "example": 1
+          },
+          "name": {
+            "type": "string",
+            "example": "Lannucci"
+          },
+          "email": {
+            "type": "string",
+            "example": "lannucci@hotmail.com"
+          },
+          "address_1": {
+            "type": "string",
+            "example": "QI 19"
+          },
+          "address_2": {
+            "type": "string",
+            "example": ""
+          },
+          "city": {
+            "type": "string",
+            "example": ""
+          },
+          "region": {
+            "type": "string",
+            "example": ""
+          },
+          "postal_code": {
+            "type": "string",
+            "example": ""
+          },
+          "country": {
+            "type": "string",
+            "example": ""
+          },
+          "shipping_region_id": {
+            "type": "integer",
+            "example": 1
+          },
+          "day_phone": {
+            "type": "string",
+            "example": "+351323213511235"
+          },
+          "eve_phone": {
+            "type": "string",
+            "example": "+452436143246123"
+          },
+          "mob_phone": {
+            "type": "string",
+            "example": "+351323213511235"
+          },
+          "credit_card": {
+            "type": "string",
+            "example": "XXXXXXXX5100"
+          }
+        }
+      },
+      "CustomerRegister": {
+        "properties": {
+          "customer": {
+            "properties": {
+              "schema": {
+                "$ref": "#/definitions/Customer"
+              }
+            }
+          },
+          "accessToken": {
+            "type": "string",
+            "example": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiY3VzdG9tZXIiLCJpYXQiOjE1NTA0MjQ0OTgsImV4cCI6MTU1MDUxMDg5OH0.aEFrNUPRWuRWx0IOEL-_A4J4Ti39iXEHAScm6GI61RR"
+          },
+          "expires_in": {
+            "type": "string",
+            "example": "24h"
+          }
+        }
+      },
+      "Cart": {
+        "properties": {
+          "item_id": {
+            "type": "integer",
+            "example": 2
+          },
+          "name": {
+            "type": "string",
+            "example": "Arc d'Triomphe"
+          },
+          "attributes": {
+            "type": "string",
+            "example": "LG, red"
+          },
+          "product_id": {
+            "type": "number",
+            "example": "1"
+          },
+          "price": {
+            "type": "string",
+            "example": "14.99"
+          },
+          "quantity": {
+            "type": "integer",
+            "example": 1
+          },
+          "subtotal": {
+            "type": "string",
+            "example": "14.99"
+          }
+        }
+      },
+      "CartWithProduct": {
+        "properties": {
+          "item_id": {
+            "type": "integer",
+            "example": 2
+          },
+          "name": {
+            "type": "string",
+            "example": "Arc d'Triomphe"
+          },
+          "attributes": {
+            "type": "string",
+            "example": "LG, red"
+          },
+          "product_id": {
+            "type": "integer",
+            "example": 2
+          },
+          "price": {
+            "type": "string",
+            "example": "14.99"
+          },
+          "quantity": {
+            "type": "integer",
+            "example": 1
+          },
+          "image": {
+            "type": "string",
+            "example": "arc-d-triomphe.gif"
+          },
+          "subtotal": {
+            "type": "string",
+            "example": "14.99"
+          }
+        }
+      },
+      "Error": {
+        "properties": {
+          "code": {
+            "type": "string",
+            "example": "USR_02"
+          },
+          "message": {
+            "type": "string",
+            "example": "The field example is empty."
+          },
+          "field": {
+            "type": "string",
+            "example": "example"
+          },
+          "status": {
+            "type": "string",
+            "example": "500"
+          }
+        }
+      },
+      "Unauthorized": {
+        "properties": {
+          "code": {
+            "type": "string",
+            "example": "AUT_02"
+          },
+          "message": {
+            "type": "string",
+            "example": "The apikey is invalid."
+          },
+          "field": {
+            "type": "string",
+            "example": "API-KEY"
+          }
+        }
+      },
+      "NotFound": {
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Endpoint not found."
+          }
+        }
+      }
+    },
+    "paths": {
+      "/departments": {
+        "get": {
+          "tags": [
+            "departments"
+          ],
+          "summary": "Get Departments",
+          "description": "Return a list of department.",
+          "responses": {
+            "200": {
+              "description": "A Array of Object Department",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/Department"
+                }
+              }
+            },
+            "400": {
+              "description": "Return a error object",
+              "schema": {
+                "$ref": "#/definitions/Error"
+              }
+            }
+          },
+          "security": []
+        }
+      },
+      "/departments/{department_id}": {
+        "get": {
+          "tags": [
+            "departments"
+          ],
+          "summary": "Get Department by ID",
+          "description": "Return a department by ID.",
+          "parameters": [
+            {
+              "name": "department_id",
+              "in": "path",
+              "required": true,
+              "description": "ID of Department",
+              "type": "integer"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "A object of Department",
+              "schema": {
+                "$ref": "#/definitions/Department"
+              }
+            },
+            "400": {
+              "description": "Return a error object",
+              "schema": {
+                "$ref": "#/definitions/Error"
+              }
+            }
+          },
+          "security": []
+        }
+      },
+      "/tax": {
+        "get": {
+          "tags": [
+            "tax"
+          ],
+          "summary": "Get All Taxes",
+          "description": "Return a list of tax.",
+          "responses": {
+            "200": {
+              "description": "A Array of Object Tax",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "properties": {
+                    "tax_id": {
+                      "type": "integer",
+                      "example": 1
+                    },
+                    "tax_type": {
+                      "type": "string",
+                      "example": "Sales Tax at 8.5%"
+                    },
+                    "tax_percentage": {
+                      "type": "string",
+                      "example": "8.50"
+                    }
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Return a error object",
+              "schema": {
+                "$ref": "#/definitions/Error"
+              }
+            }
+          },
+          "security": []
+        }
+      },
+      "/tax/{tax_id}": {
+        "get": {
+          "tags": [
+            "tax"
+          ],
+          "summary": "Get Tax by ID",
+          "description": "Return a tax by ID.",
+          "parameters": [
+            {
+              "name": "tax_id",
+              "in": "path",
+              "required": true,
+              "description": "ID of Tax",
+              "type": "integer"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "A object of Tax",
+              "schema": {
+                "properties": {
+                  "tax_id": {
+                    "type": "integer",
+                    "example": 1
+                  },
+                  "tax_type": {
+                    "type": "string",
+                    "example": "Sales Tax at 8.5%"
+                  },
+                  "tax_percentage": {
+                    "type": "string",
+                    "example": "8.50"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Return a error object",
+              "schema": {
+                "$ref": "#/definitions/Error"
+              }
+            }
+          },
+          "security": []
+        }
+      },
+      "/categories": {
+        "get": {
+          "tags": [
+            "categories"
+          ],
+          "summary": "Get Categories",
+          "description": "Return a list of categories.",
+          "parameters": [
+            {
+              "name": "order",
+              "in": "query",
+              "description": "Sorting a field. Allowed fields: 'category_id', 'name'.",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "name": "page",
+              "in": "query",
+              "description": "Inform the page. Starting with 1. Default: 1",
+              "required": false,
+              "type": "integer"
+            },
+            {
+              "name": "limit",
+              "in": "query",
+              "description": "Limit per page, Default: 20.",
+              "required": false,
+              "type": "integer"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Return a list with count (total categories) and the rows of Categories",
+              "schema": {
+                "properties": {
+                  "count": {
+                    "type": "integer",
+                    "example": 40
+                  },
+                  "rows": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/definitions/Category"
+                    }
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Return a error object",
+              "schema": {
+                "$ref": "#/definitions/Error"
+              }
+            }
+          },
+          "security": []
+        }
+      },
+      "/categories/{category_id}": {
+        "get": {
+          "tags": [
+            "categories"
+          ],
+          "summary": "Get Category by ID",
+          "description": "Return a category by ID.",
+          "parameters": [
+            {
+              "name": "category_id",
+              "in": "path",
+              "required": true,
+              "description": "ID of Category",
+              "type": "integer"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Return a object of Category",
+              "schema": {
+                "$ref": "#/definitions/Category"
+              }
+            },
+            "400": {
+              "description": "Return a error object",
+              "schema": {
+                "$ref": "#/definitions/Error"
+              }
+            }
+          },
+          "security": []
+        }
+      },
+      "/categories/inProduct/{product_id}": {
+        "get": {
+          "tags": [
+            "categories"
+          ],
+          "summary": "Get Categories of a Product",
+          "description": "Return a list of categories from a Product ID",
+          "responses": {
+            "200": {
+              "description": "Return a array of Category Objects",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/CategoryBasic"
+                }
+              }
+            },
+            "400": {
+              "description": "Return a error object",
+              "schema": {
+                "$ref": "#/definitions/Error"
+              }
+            }
+          },
+          "parameters": [
+            {
+              "name": "product_id",
+              "in": "path",
+              "required": true,
+              "description": "ID of Product",
+              "type": "integer"
+            }
+          ],
+          "security": []
+        }
+      },
+      "/categories/inDepartment/{department_id}": {
+        "get": {
+          "tags": [
+            "categories"
+          ],
+          "summary": "Get Categories of a Department",
+          "description": "Return a list of categories from a Department ID",
+          "responses": {
+            "200": {
+              "description": "Return a array of Object Category",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/Category"
+                }
+              }
+            },
+            "400": {
+              "description": "Return a error object",
+              "schema": {
+                "$ref": "#/definitions/Error"
+              }
+            }
+          },
+          "parameters": [
+            {
+              "name": "department_id",
+              "in": "path",
+              "required": true,
+              "description": "ID of Department",
+              "type": "integer"
+            }
+          ],
+          "security": []
+        }
+      },
+      "/products": {
+        "get": {
+          "tags": [
+            "products"
+          ],
+          "summary": "Get All Products",
+          "description": "Return a list of products.",
+          "parameters": [
+            {
+              "name": "page",
+              "in": "query",
+              "description": "Inform the page. Starting with 1. Default: 1",
+              "required": false,
+              "type": "integer"
+            },
+            {
+              "name": "limit",
+              "in": "query",
+              "description": "Limit per page, Default: 20.",
+              "required": false,
+              "type": "integer"
+            },
+            {
+              "name": "description_length",
+              "in": "query",
+              "description": "Limit of the description, Default: 200.",
+              "required": false,
+              "type": "integer"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Return the total of products and a list of Products in row.",
+              "schema": {
+                "properties": {
+                  "count": {
+                    "type": "integer",
+                    "example": 40
+                  },
+                  "rows": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/definitions/Product"
+                    }
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Return a error object",
+              "schema": {
+                "$ref": "#/definitions/Error"
+              }
+            }
+          },
+          "security": []
+        }
+      },
+      "/products/search": {
+        "get": {
+          "tags": [
+            "products"
+          ],
+          "summary": "Search products",
+          "responses": {
+            "200": {
+              "description": "Return the total of products and a list of products.",
+              "schema": {
+                "properties": {
+                  "count": {
+                    "type": "integer",
+                    "example": 40
+                  },
+                  "rows": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/definitions/Product"
+                    }
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Return a error object",
+              "schema": {
+                "$ref": "#/definitions/Error"
+              }
+            }
+          },
+          "parameters": [
+            {
+              "name": "query_string",
+              "in": "query",
+              "description": "Query to search.",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "all_words",
+              "in": "query",
+              "description": "All words or no. Default: on",
+              "required": false,
+              "type": "string",
+              "enum": [
+                "on",
+                "off"
+              ]
+            },
+            {
+              "name": "page",
+              "in": "query",
+              "description": "Inform the page. Starting with 1. Default: 1",
+              "required": false,
+              "type": "integer"
+            },
+            {
+              "name": "limit",
+              "in": "query",
+              "description": "Limit per page, Default: 20.",
+              "required": false,
+              "type": "integer"
+            },
+            {
+              "name": "description_length",
+              "in": "query",
+              "description": "Limit of the description, Default: 200.",
+              "required": false,
+              "type": "integer"
+            }
+          ],
+          "security": []
+        }
+      },
+      "/products/{product_id}": {
+        "get": {
+          "tags": [
+            "products"
+          ],
+          "summary": "Product by ID",
+          "responses": {
+            "200": {
+              "description": "Return a Product Object",
+              "schema": {
+                "$ref": "#/definitions/ProductComplete"
+              }
+            },
+            "400": {
+              "description": "Return a error object",
+              "schema": {
+                "$ref": "#/definitions/Error"
+              }
+            }
+          },
+          "parameters": [
+            {
+              "name": "product_id",
+              "in": "path",
+              "description": "Product ID",
+              "required": true,
+              "type": "integer"
+            }
+          ],
+          "security": []
+        }
+      },
+      "/products/inCategory/{category_id}": {
+        "get": {
+          "tags": [
+            "products"
+          ],
+          "summary": "Get a lit of Products of Categories",
+          "responses": {
+            "200": {
+              "description": "Return a list of Product Objects",
+              "schema": {
+                "properties": {
+                  "count": {
+                    "type": "integer",
+                    "example": 40
+                  },
+                  "rows": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/definitions/Product"
+                    }
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Return a error object",
+              "schema": {
+                "$ref": "#/definitions/Error"
+              }
+            }
+          },
+          "parameters": [
+            {
+              "name": "category_id",
+              "in": "path",
+              "description": "Category ID",
+              "required": true,
+              "type": "integer"
+            },
+            {
+              "name": "page",
+              "in": "query",
+              "description": "Inform the page. Starting with 1.",
+              "required": false,
+              "type": "integer"
+            },
+            {
+              "name": "limit",
+              "in": "query",
+              "description": "Limit per page.",
+              "required": false,
+              "type": "integer"
+            },
+            {
+              "name": "description_length",
+              "in": "query",
+              "description": "Limit to description.",
+              "required": false,
+              "type": "integer"
+            }
+          ],
+          "security": []
+        }
+      },
+      "/products/inDepartment/{department_id}": {
+        "get": {
+          "tags": [
+            "products"
+          ],
+          "summary": "Get a list of Products on Department",
+          "responses": {
+            "200": {
+              "description": "Return the total and a list of products",
+              "schema": {
+                "properties": {
+                  "count": {
+                    "type": "integer",
+                    "example": 40
+                  },
+                  "rows": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/definitions/ProductInDepartment"
+                    }
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Return a error object",
+              "schema": {
+                "$ref": "#/definitions/Error"
+              }
+            }
+          },
+          "parameters": [
+            {
+              "name": "department_id",
+              "in": "path",
+              "description": "Department ID",
+              "required": true,
+              "type": "integer"
+            },
+            {
+              "name": "page",
+              "in": "query",
+              "description": "Inform the page. Starting with 1.",
+              "required": false,
+              "type": "integer"
+            },
+            {
+              "name": "limit",
+              "in": "query",
+              "description": "Limit per page.",
+              "required": false,
+              "type": "integer"
+            },
+            {
+              "name": "description_length",
+              "in": "query",
+              "description": "Limit to description.",
+              "required": false,
+              "type": "integer"
+            }
+          ],
+          "security": []
+        }
+      },
+      "/products/{product_id}/details": {
+        "get": {
+          "tags": [
+            "products"
+          ],
+          "summary": "Get details of a Product",
+          "responses": {
+            "200": {
+              "description": "Return a Object of Products",
+              "schema": {
+                "$ref": "#/definitions/ProductDetail"
+              }
+            },
+            "400": {
+              "description": "Return a error object",
+              "schema": {
+                "$ref": "#/definitions/Error"
+              }
+            }
+          },
+          "parameters": [
+            {
+              "name": "product_id",
+              "in": "path",
+              "description": "Product ID",
+              "required": true,
+              "type": "integer"
+            }
+          ],
+          "security": []
+        }
+      },
+      "/products/{product_id}/locations": {
+        "get": {
+          "tags": [
+            "products"
+          ],
+          "summary": "Get locations of a Product",
+          "responses": {
+            "200": {
+              "description": "Return locations of products.",
+              "schema": {
+                "$ref": "#/definitions/ProductLocations"
+              }
+            },
+            "400": {
+              "description": "Return a error object",
+              "schema": {
+                "$ref": "#/definitions/Error"
+              }
+            }
+          },
+          "parameters": [
+            {
+              "name": "product_id",
+              "in": "path",
+              "description": "Product ID",
+              "required": true,
+              "type": "integer"
+            }
+          ],
+          "security": []
+        }
+      },
+      "/products/{product_id}/reviews": {
+        "get": {
+          "tags": [
+            "products"
+          ],
+          "summary": "Get reviews of a Product",
+          "responses": {
+            "200": {
+              "description": "Return a list of reviews",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/Review"
+                }
+              }
+            },
+            "400": {
+              "description": "Return a error object",
+              "schema": {
+                "$ref": "#/definitions/Error"
+              }
+            }
+          },
+          "parameters": [
+            {
+              "name": "product_id",
+              "in": "path",
+              "description": "Product ID",
+              "required": true,
+              "type": "integer"
+            }
+          ],
+          "security": []
+        },
+        "post": {
+          "tags": [
+            "products"
+          ],
+          "responses": {
+            "200": {
+              "description": "No data."
+            },
+            "400": {
+              "description": "Return a error object",
+              "schema": {
+                "$ref": "#/definitions/Error"
+              }
+            },
+            "401": {
+              "description": "Unauthorized",
+              "schema": {
+                "$ref": "#/definitions/Unauthorized"
+              }
+            }
+          },
+          "parameters": [
+            {
+              "name": "product_id",
+              "in": "path",
+              "description": "Product ID",
+              "required": true,
+              "type": "integer"
+            },
+            {
+              "name": "review",
+              "in": "formData",
+              "description": "Review Text of Product",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "rating",
+              "in": "formData",
+              "description": "Rating of Product",
+              "required": true,
+              "type": "integer"
+            }
+          ],
+          "security": [
+            {
+              "UserSecurity": []
+            }
+          ]
+        }
+      },
+      "/customer": {
+        "put": {
+          "tags": [
+            "customers"
+          ],
+          "summary": "Update a customer",
+          "responses": {
+            "200": {
+              "description": "A Customer Object",
+              "schema": {
+                "$ref": "#/definitions/Customer"
+              }
+            },
+            "400": {
+              "description": "Return a error object",
+              "schema": {
+                "$ref": "#/definitions/Error"
+              }
+            },
+            "401": {
+              "description": "Unauthorized",
+              "schema": {
+                "$ref": "#/definitions/Unauthorized"
+              }
+            }
+          },
+          "parameters": [
+            {
+              "name": "name",
+              "in": "formData",
+              "description": "Customer name.",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "email",
+              "in": "formData",
+              "description": "Customer email.",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "password",
+              "in": "formData",
+              "description": "Customer password.",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "name": "day_phone",
+              "in": "formData",
+              "description": "Customer day phone.",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "name": "eve_phone",
+              "in": "formData",
+              "description": "Customer eve phone.",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "name": "mob_phone",
+              "in": "formData",
+              "description": "Customer mob phone.",
+              "required": false,
+              "type": "string"
+            }
+          ],
+          "security": [
+            {
+              "UserSecurity": []
+            }
+          ]
+        },
+        "get": {
+          "tags": [
+            "customers"
+          ],
+          "summary": "Get a customer by ID. The customer is getting by Token.",
+          "responses": {
+            "200": {
+              "description": "Return a Object of Customer with auth credencials",
+              "schema": {
+                "$ref": "#/definitions/Customer"
+              }
+            },
+            "400": {
+              "description": "Return a error object",
+              "schema": {
+                "$ref": "#/definitions/Error"
+              }
+            },
+            "401": {
+              "description": "Unauthorized",
+              "schema": {
+                "$ref": "#/definitions/Unauthorized"
+              }
+            }
+          },
+          "security": [
+            {
+              "UserSecurity": []
+            }
+          ]
+        }
+      },
+      "/customers": {
+        "post": {
+          "tags": [
+            "customers"
+          ],
+          "summary": "Register a Customer",
+          "description": "Record a customer.",
+          "responses": {
+            "200": {
+              "description": "Return a Object of Customer with auth credencials",
+              "schema": {
+                "$ref": "#/definitions/CustomerRegister"
+              }
+            },
+            "400": {
+              "description": "Return a error object",
+              "schema": {
+                "$ref": "#/definitions/Error"
+              }
+            }
+          },
+          "parameters": [
+            {
+              "name": "name",
+              "in": "formData",
+              "description": "Name of User.",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "email",
+              "in": "formData",
+              "description": "Email of User.",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "password",
+              "in": "formData",
+              "description": "Password of User.",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "security": []
+        }
+      },
+      "/customers/login": {
+        "post": {
+          "tags": [
+            "customers"
+          ],
+          "summary": "Sign in in the Shopping.",
+          "description": "Customer Login.",
+          "responses": {
+            "200": {
+              "description": "Return a Object of Customer with auth credencials",
+              "schema": {
+                "$ref": "#/definitions/CustomerRegister"
+              }
+            },
+            "400": {
+              "description": "Return a error object",
+              "schema": {
+                "$ref": "#/definitions/Error"
+              }
+            }
+          },
+          "parameters": [
+            {
+              "name": "email",
+              "in": "formData",
+              "description": "Email of User.",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "password",
+              "in": "formData",
+              "description": "Password of User.",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "security": []
+        }
+      },
+      "/customers/facebook": {
+        "post": {
+          "tags": [
+            "customers"
+          ],
+          "summary": "Sign in with a facebook login token.",
+          "description": "Customer Login with Facebook.",
+          "responses": {
+            "200": {
+              "description": "Return a Object of Customer with auth credencials",
+              "schema": {
+                "$ref": "#/definitions/CustomerRegister"
+              }
+            },
+            "400": {
+              "description": "Return a error object",
+              "schema": {
+                "$ref": "#/definitions/Error"
+              }
+            }
+          },
+          "parameters": [
+            {
+              "name": "access_token",
+              "in": "formData",
+              "description": "Token generated from your facebook login.",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "security": []
+        }
+      },
+      "/customers/address": {
+        "put": {
+          "tags": [
+            "customers"
+          ],
+          "summary": "Update the address from customer",
+          "responses": {
+            "200": {
+              "description": "Return a Customer Object",
+              "schema": {
+                "$ref": "#/definitions/Customer"
+              }
+            },
+            "400": {
+              "description": "Return a error object",
+              "schema": {
+                "$ref": "#/definitions/Error"
+              }
+            },
+            "401": {
+              "description": "Unauthorized",
+              "schema": {
+                "$ref": "#/definitions/Unauthorized"
+              }
+            }
+          },
+          "parameters": [
+            {
+              "name": "address_1",
+              "in": "formData",
+              "description": "Address 1",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "address_2",
+              "in": "formData",
+              "description": "Address 2",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "name": "city",
+              "in": "formData",
+              "description": "City",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "region",
+              "in": "formData",
+              "description": "Region",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "postal_code",
+              "in": "formData",
+              "description": "Postal Code",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "country",
+              "in": "formData",
+              "description": "Country",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "shipping_region_id",
+              "in": "formData",
+              "description": "Shipping Region ID",
+              "required": true,
+              "type": "integer"
+            }
+          ],
+          "security": [
+            {
+              "UserSecurity": []
+            }
+          ]
+        }
+      },
+      "/customers/creditCard": {
+        "put": {
+          "tags": [
+            "customers"
+          ],
+          "summary": "Update the credit card from customer",
+          "responses": {
+            "200": {
+              "description": "Return a Customer Object.",
+              "schema": {
+                "$ref": "#/definitions/Customer"
+              }
+            },
+            "400": {
+              "description": "Return a error object",
+              "schema": {
+                "$ref": "#/definitions/Error"
+              }
+            },
+            "401": {
+              "description": "Unauthorized",
+              "schema": {
+                "$ref": "#/definitions/Unauthorized"
+              }
+            }
+          },
+          "parameters": [
+            {
+              "name": "credit_card",
+              "in": "formData",
+              "description": "Credit Card.",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "security": [
+            {
+              "UserSecurity": []
+            }
+          ]
+        }
+      },
+      "/shoppingcart/generateUniqueId": {
+        "get": {
+          "tags": [
+            "shoppingcart"
+          ],
+          "summary": "Generete the unique CART ID",
+          "responses": {
+            "200": {
+              "description": "Json Object with unique Cart ID",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "cart_id": {
+                    "type": "string",
+                    "example": "mu1js99v9n1"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Return a error object",
+              "schema": {
+                "$ref": "#/definitions/Error"
+              }
+            }
+          },
+          "security": []
+        }
+      },
+      "/shoppingcart/add": {
+        "post": {
+          "tags": [
+            "shoppingcart"
+          ],
+          "summary": "Add a Product in the cart",
+          "description": "put a product in the cart",
+          "responses": {
+            "200": {
+              "description": "Return a array of products in the cart",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/CartWithProduct"
+                }
+              }
+            },
+            "400": {
+              "description": "Return a error object",
+              "schema": {
+                "$ref": "#/definitions/Error"
+              }
+            }
+          },
+          "parameters": [
+            {
+              "name": "cart_id",
+              "in": "formData",
+              "description": "Cart ID.",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "product_id",
+              "in": "formData",
+              "description": "Product ID.",
+              "required": true,
+              "type": "integer"
+            },
+            {
+              "name": "attributes",
+              "in": "formData",
+              "description": "Attributes of Product.",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "security": []
+        }
+      },
+      "/shoppingcart/{cart_id}": {
+        "get": {
+          "tags": [
+            "shoppingcart"
+          ],
+          "summary": "Get List of Products in Shopping Cart",
+          "responses": {
+            "200": {
+              "description": "Return a array of products in the cart.",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/CartWithProduct"
+                }
+              }
+            },
+            "400": {
+              "description": "Return a error object",
+              "schema": {
+                "$ref": "#/definitions/Error"
+              }
+            }
+          },
+          "parameters": [
+            {
+              "name": "cart_id",
+              "in": "path",
+              "description": "Cart ID.",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "security": []
+        }
+      },
+      "/shoppingcart/update/{item_id}": {
+        "put": {
+          "tags": [
+            "shoppingcart"
+          ],
+          "summary": "Update the cart by item",
+          "responses": {
+            "200": {
+              "description": "Return a array of products in the cart.",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/Cart"
+                }
+              }
+            },
+            "400": {
+              "description": "Return a error object",
+              "schema": {
+                "$ref": "#/definitions/Error"
+              }
+            }
+          },
+          "parameters": [
+            {
+              "name": "item_id",
+              "in": "path",
+              "description": "Item ID.",
+              "required": true,
+              "type": "integer"
+            },
+            {
+              "name": "quantity",
+              "in": "formData",
+              "description": "Item Quantity.",
+              "required": true,
+              "type": "integer"
+            }
+          ],
+          "security": []
+        }
+      },
+      "/shoppingcart/empty/{cart_id}": {
+        "delete": {
+          "tags": [
+            "shoppingcart"
+          ],
+          "summary": "Empty cart",
+          "responses": {
+            "200": {
+              "description": "Return a empty Array"
+            },
+            "400": {
+              "description": "Return a error object",
+              "schema": {
+                "$ref": "#/definitions/Error"
+              }
+            }
+          },
+          "parameters": [
+            {
+              "name": "cart_id",
+              "in": "path",
+              "description": "Cart ID.",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "security": []
+        }
+      },
+      "/shoppingcart/moveToCart/{item_id}": {
+        "get": {
+          "tags": [
+            "shoppingcart"
+          ],
+          "summary": "Move a product to cart",
+          "responses": {
+            "200": {
+              "description": "No data."
+            },
+            "400": {
+              "description": "Return a error object",
+              "schema": {
+                "$ref": "#/definitions/Error"
+              }
+            }
+          },
+          "parameters": [
+            {
+              "name": "item_id",
+              "in": "path",
+              "description": "Item ID.",
+              "required": true,
+              "type": "integer"
+            }
+          ],
+          "security": []
+        }
+      },
+      "/shoppingcart/totalAmount/{cart_id}": {
+        "get": {
+          "tags": [
+            "shoppingcart"
+          ],
+          "summary": "Return a total Amount from Cart",
+          "responses": {
+            "200": {
+              "description": "Return the total amount",
+              "schema": {
+                "properties": {
+                  "total_amount": {
+                    "type": "integer",
+                    "example": 5
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Return a error object",
+              "schema": {
+                "$ref": "#/definitions/Error"
+              }
+            }
+          },
+          "parameters": [
+            {
+              "name": "cart_id",
+              "in": "path",
+              "description": "Cart ID.",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "security": []
+        }
+      },
+      "/shoppingcart/saveForLater/{item_id}": {
+        "get": {
+          "tags": [
+            "shoppingcart"
+          ],
+          "summary": "Save a Product for latter",
+          "responses": {
+            "200": {
+              "description": "No data."
+            },
+            "400": {
+              "description": "Return a error object",
+              "schema": {
+                "$ref": "#/definitions/Error"
+              }
+            }
+          },
+          "parameters": [
+            {
+              "name": "item_id",
+              "in": "path",
+              "description": "Item ID.",
+              "required": true,
+              "type": "integer"
+            }
+          ],
+          "security": []
+        }
+      },
+      "/shoppingcart/getSaved/{cart_id}": {
+        "get": {
+          "tags": [
+            "shoppingcart"
+          ],
+          "summary": "Get Products saved for latter",
+          "responses": {
+            "200": {
+              "description": "Return a object of item salved.",
+              "schema": {
+                "properties": {
+                  "item_id": {
+                    "type": "integer",
+                    "example": 1
+                  },
+                  "name": {
+                    "type": "string",
+                    "example": "Tshit"
+                  },
+                  "attributes": {
+                    "type": "string",
+                    "example": "LG, red"
+                  },
+                  "price": {
+                    "type": "string",
+                    "example": "15.90"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Return a error object",
+              "schema": {
+                "$ref": "#/definitions/Error"
+              }
+            }
+          },
+          "parameters": [
+            {
+              "name": "cart_id",
+              "in": "path",
+              "description": "Cart ID.",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "security": []
+        }
+      },
+      "/shoppingcart/removeProduct/{item_id}": {
+        "delete": {
+          "tags": [
+            "shoppingcart"
+          ],
+          "summary": "Remove a product in the cart",
+          "responses": {
+            "200": {
+              "description": "No data."
+            },
+            "400": {
+              "description": "Return a error object",
+              "schema": {
+                "$ref": "#/definitions/Error"
+              }
+            }
+          },
+          "parameters": [
+            {
+              "name": "item_id",
+              "in": "path",
+              "description": "Item ID.",
+              "required": true,
+              "type": "integer"
+            }
+          ],
+          "security": []
+        }
+      },
+      "/orders": {
+        "post": {
+          "tags": [
+            "orders"
+          ],
+          "summary": "Create a Order",
+          "responses": {
+            "200": {
+              "description": "Return the Order ID",
+              "schema": {
+                "properties": {
+                  "orderId": {
+                    "type": "integer",
+                    "example": 1
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Return a error object",
+              "schema": {
+                "$ref": "#/definitions/Error"
+              }
+            },
+            "401": {
+              "description": "Unauthorized",
+              "schema": {
+                "$ref": "#/definitions/Unauthorized"
+              }
+            }
+          },
+          "parameters": [
+            {
+              "name": "cart_id",
+              "in": "formData",
+              "description": "Cart ID",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "shipping_id",
+              "in": "formData",
+              "description": "Shipping ID",
+              "required": true,
+              "type": "integer"
+            },
+            {
+              "name": "tax_id",
+              "in": "formData",
+              "description": "Tax ID",
+              "required": true,
+              "type": "integer"
+            }
+          ],
+          "security": [
+            {
+              "UserSecurity": []
+            }
+          ]
+        }
+      },
+      "/orders/{order_id}": {
+        "get": {
+          "tags": [
+            "orders"
+          ],
+          "summary": "Get Info about Order",
+          "responses": {
+            "200": {
+              "description": "Return a object of Order.",
+              "schema": {
+                "properties": {
+                  "order_id": {
+                    "type": "integer",
+                    "example": 1
+                  },
+                  "product_id": {
+                    "type": "integer",
+                    "example": 1
+                  },
+                  "attributes": {
+                    "type": "string",
+                    "example": "LG, Red"
+                  },
+                  "product_name": {
+                    "type": "string",
+                    "example": "Arc d'Triomphe"
+                  },
+                  "quantity": {
+                    "type": "integer",
+                    "example": 1
+                  },
+                  "unit_cost": {
+                    "type": "string",
+                    "example": "14.99"
+                  },
+                  "subtotal": {
+                    "type": "string",
+                    "example": "14.99"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Return a error object",
+              "schema": {
+                "$ref": "#/definitions/Error"
+              }
+            },
+            "401": {
+              "description": "Unauthorized",
+              "schema": {
+                "$ref": "#/definitions/Unauthorized"
+              }
+            },
+            "404": {
+              "description": "Error Not Found if params is not a number",
+              "schema": {
+                "$ref": "#/definitions/NotFound"
+              }
+            }
+          },
+          "parameters": [
+            {
+              "name": "order_id",
+              "in": "path",
+              "description": "Order ID",
+              "required": true,
+              "type": "integer"
+            }
+          ],
+          "security": [
+            {
+              "UserSecurity": []
+            }
+          ]
+        }
+      },
+      "/orders/inCustomer": {
+        "get": {
+          "tags": [
+            "orders"
+          ],
+          "summary": "Get orders by Customer",
+          "responses": {
+            "200": {
+              "description": "Return a array of Orders"
+            },
+            "400": {
+              "description": "Return a error object",
+              "schema": {
+                "$ref": "#/definitions/Error"
+              }
+            },
+            "401": {
+              "description": "Unauthorized",
+              "schema": {
+                "$ref": "#/definitions/Unauthorized"
+              }
+            }
+          },
+          "parameters": [],
+          "security": [
+            {
+              "UserSecurity": []
+            }
+          ]
+        }
+      },
+      "/orders/shortDetail/{order_id}": {
+        "get": {
+          "tags": [
+            "orders"
+          ],
+          "summary": "Get Info about Order",
+          "responses": {
+            "200": {
+              "description": "Return a Object Order",
+              "schema": {
+                "properties": {
+                  "order_id": {
+                    "type": "integer",
+                    "example": 1
+                  },
+                  "total_amount": {
+                    "type": "integer",
+                    "example": 1
+                  },
+                  "created_on": {
+                    "type": "string",
+                    "example": ""
+                  },
+                  "shipped_on": {
+                    "type": "string",
+                    "example": ""
+                  },
+                  "status": {
+                    "type": "string",
+                    "example": "paid"
+                  },
+                  "name": {
+                    "type": "string",
+                    "example": "Test"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Return a error object",
+              "schema": {
+                "$ref": "#/definitions/Error"
+              }
+            },
+            "401": {
+              "description": "Unauthorized",
+              "schema": {
+                "$ref": "#/definitions/Unauthorized"
+              }
+            }
+          },
+          "parameters": [
+            {
+              "name": "order_id",
+              "in": "path",
+              "description": "Order ID",
+              "required": true,
+              "type": "integer"
+            }
+          ],
+          "security": [
+            {
+              "UserSecurity": []
+            }
+          ]
+        }
+      },
+      "/shipping/regions": {
+        "get": {
+          "tags": [
+            "shipping"
+          ],
+          "summary": "Return shippings regions",
+          "responses": {
+            "200": {
+              "description": "Return a list of Shippings Regions",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "properties": {
+                    "shipping_region_id": {
+                      "type": "integer",
+                      "example": 1
+                    },
+                    "shipping_region": {
+                      "type": "string",
+                      "example": "Please Select"
+                    }
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Return a error object",
+              "schema": {
+                "$ref": "#/definitions/Error"
+              }
+            }
+          },
+          "security": []
+        }
+      },
+      "/shipping/regions/{shipping_region_id}": {
+        "get": {
+          "tags": [
+            "shipping"
+          ],
+          "summary": "Return shippings regions",
+          "responses": {
+            "200": {
+              "description": "Return a list of Object",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "properties": {
+                    "shipping_id": {
+                      "type": "integer",
+                      "example": 1
+                    },
+                    "shipping_type": {
+                      "type": "string",
+                      "example": "Next Day Delivery ($20)"
+                    },
+                    "shipping_cost": {
+                      "type": "string",
+                      "example": "20.00"
+                    },
+                    "shipping_region_id": {
+                      "type": "integer",
+                      "example": 2
+                    }
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Return a error object",
+              "schema": {
+                "$ref": "#/definitions/Error"
+              }
+            }
+          },
+          "parameters": [
+            {
+              "name": "shipping_region_id",
+              "in": "path",
+              "description": "Shipping Region Id",
+              "required": true,
+              "type": "integer"
+            }
+          ],
+          "security": []
+        }
+      },
+      "/attributes": {
+        "get": {
+          "tags": [
+            "attributes"
+          ],
+          "summary": "Get Attribute list",
+          "responses": {
+            "200": {
+              "description": "List of Attribute Objects",
+              "schema": {
+                "properties": {
+                  "attribute_id": {
+                    "type": "integer",
+                    "example": 1
+                  },
+                  "name": {
+                    "type": "string",
+                    "example": "Size"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Return a error object",
+              "schema": {
+                "$ref": "#/definitions/Error"
+              }
+            }
+          },
+          "security": []
+        }
+      },
+      "/attributes/{attribute_id}": {
+        "get": {
+          "tags": [
+            "attributes"
+          ],
+          "summary": "Get Attribute list",
+          "responses": {
+            "200": {
+              "description": "Return a Object of Attribute",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "properties": {
+                    "attribute_id": {
+                      "type": "integer",
+                      "example": 1
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "Size"
+                    }
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Return a error object",
+              "schema": {
+                "$ref": "#/definitions/Error"
+              }
+            }
+          },
+          "parameters": [
+            {
+              "name": "attribute_id",
+              "in": "path",
+              "description": "Attribute Id",
+              "required": true,
+              "type": "integer"
+            }
+          ],
+          "security": []
+        }
+      },
+      "/attributes/values/{attribute_id}": {
+        "get": {
+          "tags": [
+            "attributes"
+          ],
+          "summary": "Get Values Attribute from Atribute",
+          "responses": {
+            "200": {
+              "description": "Return a list of Attribute Values",
+              "schema": {
+                "properties": {
+                  "attribute_value_id": {
+                    "type": "integer",
+                    "example": 1
+                  },
+                  "value": {
+                    "type": "string",
+                    "example": "S"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Return a error object",
+              "schema": {
+                "$ref": "#/definitions/Error"
+              }
+            }
+          },
+          "parameters": [
+            {
+              "name": "attribute_id",
+              "in": "path",
+              "description": "Attribute Id",
+              "required": true,
+              "type": "integer"
+            }
+          ],
+          "security": []
+        }
+      },
+      "/attributes/inProduct/{product_id}": {
+        "get": {
+          "tags": [
+            "attributes"
+          ],
+          "summary": "Get all Attributes with Produt ID",
+          "responses": {
+            "200": {
+              "description": "Return a array of Values of Attribute Objects",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "properties": {
+                    "attribute_name": {
+                      "type": "string",
+                      "example": "Color"
+                    },
+                    "attribute_value_id": {
+                      "type": "integer",
+                      "example": 6
+                    },
+                    "attribute_value": {
+                      "type": "string",
+                      "example": "White"
+                    }
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Return a error object",
+              "schema": {
+                "$ref": "#/definitions/Error"
+              }
+            }
+          },
+          "parameters": [
+            {
+              "name": "product_id",
+              "in": "path",
+              "description": "Product Id",
+              "required": true,
+              "type": "integer"
+            }
+          ],
+          "security": []
+        }
+      },
+      "/stripe/charge": {
+        "post": {
+          "tags": [
+            "stripe"
+          ],
+          "summary": "This method receive a front-end payment and create a chage.",
+          "description": "You can send a cart informations and payment token (https://stripe.com/docs/api/tokens).",
+          "responses": {
+            "200": {
+              "description": " Object from Stripe"
+            },
+            "400": {
+              "description": "Return a error object",
+              "schema": {
+                "$ref": "#/definitions/Error"
+              }
+            },
+            "401": {
+              "description": "Unauthorized",
+              "schema": {
+                "$ref": "#/definitions/Unauthorized"
+              }
+            }
+          },
+          "parameters": [
+            {
+              "name": "stripeToken",
+              "in": "formData",
+              "description": "The API token, you can use this example to get it: https://stripe.com/docs/stripe-js/elements/quickstart",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "order_id",
+              "in": "formData",
+              "description": "The order ID recorded before (Check the Order Documentation)",
+              "required": true,
+              "type": "integer"
+            },
+            {
+              "name": "description",
+              "in": "formData",
+              "description": "Description to order.",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "amount",
+              "in": "formData",
+              "description": "Only numbers like: 999",
+              "required": true,
+              "type": "integer"
+            },
+            {
+              "name": "currency",
+              "in": "formData",
+              "description": "Check here the options: https://stripe.com/docs/currencies, the default",
+              "required": false,
+              "default": "USD",
+              "type": "string"
+            }
+          ],
+          "security": []
+        }
+      },
+      "/stripe/webhooks": {
+        "post": {
+          "tags": [
+            "stripe"
+          ],
+          "summary": "Endpoint that provide a synchronization",
+          "description": "You need put this endpoint in the stripe webhooks (https://dashboard.stripe.com/account/webhooks), so get there the end-point secrete key.",
+          "responses": {
+            "200": {
+              "description": "This endpoint is used by Stripe."
+            }
+          }
+        }
+      }
+    },
+    "securityDefinitions": {
+      "UserSecurity": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "USER-KEY"
+      }
+    }
+  }
