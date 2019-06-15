@@ -10,7 +10,7 @@ A REST API based on NodeJS, Express, MySQL, and Knex using JSON Web Tokens (JWT)
 
 ## Architecture
 
-This is an API first monolith app that uses typical MVP flow. To improve performance I chose not use an ORM for the models but to use a query builder instead. Models are in `/repositories`, while Controllers are in `/controllers`. There are no views as they do not really apply here.
+This is an API first monolith app that uses a typical MVP flow. To improve performance I chose not use an ORM for the models but to use a query builder instead. Models are in `/repositories`, while Controllers are in `/controllers`. There are no views as they do not really apply here.
 
 ![](./dist/readme/express-rest-api.jpg)
 
@@ -26,7 +26,7 @@ This is an API first monolith app that uses typical MVP flow. To improve perform
 - Knex query builder
 
 ### Development
-- Docker containers with Docker Compose
+- Docker containers (app, redis and mysql) with Docker Compose
 - Travis CI for integrated tests on pull requests
 - Snyk for npm package vulnerability scans
 - Mocha with Istanbul for testing and test coverage reporting
