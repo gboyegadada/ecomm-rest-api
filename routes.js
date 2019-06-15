@@ -45,11 +45,9 @@ let auth = require('express-jwt')({
 // export route generating function
 module.exports = app => {
 
-  // "Hello, World!" route
-  app.route('/').get((req, res) => {
-    res.json({
-      message: `This is the ${process.env.APP} REST API`
-    });
+  // Swagger API Docs
+  app.route('/docs').get((req, res) => {
+    res.sendFile(__dirname + '/dist/index.html');
   });
 
   // 1. AUTH

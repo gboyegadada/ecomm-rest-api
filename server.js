@@ -1,6 +1,5 @@
 // import libraries
 let exp = require('express');     // to set up an express app
-let argv = require('minimist')(process.argv.slice(2));
 let bp  = require('body-parser'); // for parsing JSON in request bodies
 let helmet = require('helmet'); // For header security
 let compression = require('compression')
@@ -17,24 +16,18 @@ require('dotenv').config();
 
 // initialize app
 let app = exp();
-let subpath = exp();
+app.use('/docs', exp.static('dist'));
 
-let swagger = require('swagger-node-express').createNew(subpath);
-app.use(exp.static('dist'));
-swagger.setApiInfo({
-  title: "eCommerce API",
-  description: "Documentation for Ecommerce API.",
-  termsOfServiceUrl: "",
-  contact: "yourname@something.com",
-  license: "",
-  licenseUrl: ""
-});
+let swagger = require('swagger-node-express');
+
+// Couple the application to the Swagger module.
+swagger.setAppHandler(app);
 
 /**
  * Preflight Middleware
  */
 // Rate limiter middleware to prevent DDoS (enable in ** PRODUCTION **)
-if ('production' === process.env.NODE_ENV || 'development' === process.env.NODE_ENV) {
+if ('production' === process.env.NODE_ENV) {
   app.use(rateLimiterMiddleware);
 }
 
