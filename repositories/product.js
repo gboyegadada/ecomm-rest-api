@@ -55,7 +55,7 @@ module.exports.search = (query, sort = { all_words: 'on', page: 1, limit: 20, de
                 'Call catalog_search(?, ?, ?, ?, ?)',
                 [query, sort.all_words, sort.description_length, sort.limit, offset]
             )
-            .then(res => { console.dir(res[0][0], {depth: null}); return res[0][0]; })
+            .then(res => res[0][0])
             .timeout(1000);
 };
 
