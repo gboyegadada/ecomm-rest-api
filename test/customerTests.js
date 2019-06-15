@@ -130,7 +130,7 @@ describe(`Test /customers routes:`, function() {
 
   describe('3. Sign in with Facebook', function() {
 
-    const fb_access_token = 'EAAGb5RqMa5wBAO1TH4ZCiaYhl25AzpZB1cTZBiZC1kpKgV8fPradX4mTfDOkTd6VMBHknQ2gwEhh5T1ZCgNpWo9SvuKZAStYosc953rUJplTIsZACz44flZA34y8FxA2RvqX1yLyH6vFWh9sLkzBaS5wAkfSINGZAUSajrS9ZBo9diRFOdNhKoVaIXGlPGGhtXmNIZD';
+    const fb_access_token = 'EAAGb5RqMa5wBALZBPvllzDbSXfZBJKl9VaCQ8zCeIsogYRJAveCoYIkWZAbMpMv34UjDeZAROVHNMYyBzLbptPXSIbPl9WjTuWTwmmOfYWteUf4aIRKUsYidIhWikTOzwwooIgC6wMVUaL6ZAzad0MZCtUFshzvce1nIHSNFk8ZBzL6WQd4k1sVy1LFTHf5scEZD';
 
     it('returns 200 "OK" when access_token is valid', function(done) {
 
