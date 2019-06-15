@@ -4,6 +4,18 @@ version: v1.13.5
 ignore:
   SNYK-JS-EXPRESSVALIDATOR-174763:
     - express-validator:
-        reason: No updates available yet
-        expires: '2019-07-14T05:38:19.117Z'
+        reason: No patch
+        expires: '2019-07-15T19:05:41.068Z'
+  SNYK-JS-LODASH-73638:
+    - swagger-node-express > lodash:
+        reason: No patch
+        expires: '2019-07-15T19:05:41.068Z'
+  SNYK-JS-LODASH-73639:
+    - swagger-node-express > lodash:
+        reason: No patch
+        expires: '2019-07-15T19:05:41.068Z'
+  'npm:lodash:20180130':
+    - swagger-node-express > lodash:
+        reason: None given
+        expires: '2019-07-15T19:05:41.068Z'
 patch: {}
