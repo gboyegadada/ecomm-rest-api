@@ -33,7 +33,7 @@ $ mysql -u root -h localhost -Dapp -P 33062
 
 ## Architecture
 
-This is an API first monolith app that uses a typical MVP flow. To improve performance I chose not use an ORM for the models but to use a query builder instead. Models are in `/repositories`, while Controllers are in `/controllers`. There are no views as they do not really apply here.
+This is an API first monolith app that uses a typical MVC flow. To improve performance I chose not use an ORM for the models but to use a query builder instead. Models are in `/repositories`, while Controllers are in `/controllers`. There are no views as they do not really apply here.
 
 ![](./dist/readme/express-rest-api.jpg)
 
