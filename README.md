@@ -4,6 +4,30 @@
 
 A REST API based on NodeJS, Express, MySQL, and Knex using JSON Web Tokens (JWT) for authentication.
 
+# Quick Start
+
+Clone the repo and navigate to project root then run:
+```bash
+$ docker-compose up -d
+```
+
+## URLs
+API: 
+```bash
+http://localhost:49160
+```
+Docs: 
+```bash
+http://localhost:49160/docs
+```
+MySQL: 
+```bash
+$ mysql -u root -h localhost -Dapp -P 33062
+```
+
+
+
+
 # Project structure
 
 
@@ -30,7 +54,7 @@ This is an API first monolith app that uses a typical MVP flow. To improve perfo
 - Mocha with Istanbul for testing and test coverage reporting
 - Bash scripts for docker compose hooks (e.g. waiting for MySQL container before running the server)
 
-## Adnvanced Requirements
+# Adnvanced Requirements
 This is my first Node JS backend project (I use PHP with Symfony at work). Also it is hard to clearify what the "current" system can support without knowing it's architecture, technologies used and available resources but I tried to do a little research:
 
 1. **The current system can support 100,000 daily active users. How do you design a new system to support 1,000,000 daily active users?**
