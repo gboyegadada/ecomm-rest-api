@@ -6,24 +6,28 @@ A REST API based on NodeJS, Express, MySQL, and Knex using JSON Web Tokens (JWT)
 
 # Quick Start
 
-Clone the repo and navigate to project root then run:
-```bash
-$ docker-compose up -d
-```
+1. Clone the repo and navigate to project root 
+
+2. Copy `.env.example` to `.env`
+
+3. Then run:
+    ```bash
+    $ docker-compose up -d
+    ```
 
 ## URLs
-API: 
-```bash
-http://localhost:49160
-```
-Docs: 
-```bash
-http://localhost:49160/docs
-```
-MySQL: 
-```bash
-$ mysql -u root -h localhost -Dapp -P 33062
-```
+- API: 
+    ```bash
+    http://localhost:49160
+    ```
+- Docs: 
+    ```bash
+    http://localhost:49160/docs
+    ```
+- MySQL: 
+    ```bash
+    $ mysql -u root -h localhost -Dapp -P 33062
+    ```
 
 
 
