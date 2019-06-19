@@ -6,7 +6,7 @@
   "scripts": {
     "test": "snyk test && ./reset-db.sh && nyc --reporter=lcov --reporter=text mocha --exit",
     "watch": "nyc mocha --watch",
-    "start": "nodemon index.js",
+    "start": "node index.js",
     "cover": "nyc --reporter=html --reporter=text mocha --exit"
   },
   "repository": {
