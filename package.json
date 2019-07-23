@@ -4,7 +4,7 @@
   "description": "An eCommerce REST API based on NodeJS, Express, MongoDB, Mongoose using JSON Web Tokens (JWT).",
   "main": "index.js",
   "scripts": {
-    "test": "snyk test && ./reset-db.sh && nyc --reporter=lcov --reporter=text mocha --exit",
+    "test": "./reset-db.sh && nyc --reporter=lcov --reporter=text mocha --exit",
     "watch": "nyc mocha --watch",
     "start": "node index.js",
     "cover": "nyc --reporter=html --reporter=text mocha --exit"
@@ -31,6 +31,7 @@
   "homepage": "https://github.com/gboyegadada/ecommerce-api#readme",
   "dependencies": {
     "bcrypt": "^3.0.6",
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "compression": "^1.7.4",
     "country-list": "^2.1.1",

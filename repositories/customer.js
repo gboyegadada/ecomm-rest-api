@@ -1,5 +1,5 @@
 const db = require('../services/db');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const saltRounds = 10;
 
 const TABLE = 'customer';

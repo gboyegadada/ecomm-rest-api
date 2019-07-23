@@ -10,7 +10,6 @@ services:
     command: ["./wait-for-mysql.sh", "db", "pm2-runtime", "start", "ecosystem.config.js"]
     volumes:
       - .:/usr/src/app
-      - ./node_modules:/usr/src/app/node_modules
     links:
       - db:db  
     ports:

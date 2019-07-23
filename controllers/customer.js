@@ -1,7 +1,7 @@
 let Customer = require('../repositories/customer');
 let filter = require('express-validator/filter');
 let validatorErrorFormatter = require('../handlers/validation-error-formatter');
-let bcrypt = require('bcrypt');
+let bcrypt = require('bcryptjs');
 let jwt = require('jsonwebtoken');
 let { doFacebookAuth } = require('../handlers/fb-auth');
 
