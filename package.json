@@ -57,7 +57,7 @@
     "chalk": "^2.4.2",
     "coveralls": "^3.0.3",
     "faker": "^4.1.0",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "lodash": "^4.17.11",
     "mocha": "^6.1.4",
     "nodemon": "^1.19.1",
